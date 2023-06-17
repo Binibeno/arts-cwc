@@ -1,7 +1,7 @@
 import * as React from "react";
-import type { HeadFC, PageProps } from "gatsby";
+import { Link, type HeadFC, type PageProps, navigate } from "gatsby";
 //this project uses MUI
-import { Button, IconButton, TextField } from "@mui/material";
+import { Button, IconButton, Link as MUILink, TextField } from "@mui/material";
 
 // import css
 import "../styles/main.css";
@@ -31,6 +31,7 @@ import {
   Container,
   ListItemButton,
 } from "@mui/material";
+import LikeIconDisabled from "@mui/icons-material/ThumbUpOutlined";
 import LikeIcon from "@mui/icons-material/ThumbUp";
 import BookmarkDisabled from "@mui/icons-material/TurnedInNot";
 import BookmarkEnabled from "@mui/icons-material/TurnedInNot";
@@ -88,21 +89,67 @@ import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this i
 const theme = createTheme({
   typography: {
     fontSize: 16,
+    // allVariants: {
+    //   color: "#212529",
+    // },
   },
   palette: {
-    // primary: orange[500],
-    mode: "dark",
+    mode: "light",
     primary: {
-      main: blue[600],
+      // milestone yellow
+      main: "#fdc72f",
+    },
+    secondary: {
+      // milestone blue
+      main: "#19adc3",
+    },
+    action: {
+      active: "#FFF",
+    },
+    text: {
+      // milestone black
+      primary: "#212529", // Replace with your desired primary text color
+      //! NOTE: main.css has this overwritten for links
+      // secondary: "#AAA", // Replace with your desired secondary text color
+    },
+  },
+  // set the color of the button
+  components: {
+    MuiButton: {
+      // defaultProps: {
+      //   // variant: "outlined",
+      // },
+      variants: [
+        {
+          props: { variant: "contained" },
+          style: {
+            color: "white",
+            ":hover": {
+              backgroundColor: "#127f90",
+            },
+            // bluebutton
+            backgroundColor: "#19adc3",
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          // color: "white",
+          // backgroundColor: "#19adc3",
+        },
+        colorInherit: {
+          // color: "white",
+          // backgroundColor: "#19adc3",
+        },
+      },
     },
   },
 });
+
+export { theme };
+
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function Center({ children }: { children?: React.ReactNode }) {
-  return <Container>{children}</Container>;
 }
 
 function Intro() {
@@ -112,7 +159,8 @@ function Intro() {
         sx={{
           display: "flex",
           justifyContent: "center",
-          // alignItems: "center",
+          alignItems: "center",
+          height: "100%",
         }}
       >
         {children}
@@ -120,52 +168,62 @@ function Intro() {
     );
   }
 
-  const size = "6.857142857142857rem";
+  const size = { md: "6.857142857142857rem", xs: "4.857142857142857rem" };
   // TODO: auto get (see responsive docs)
   return (
-    <Box>
-      <Typography variant="h3" component="h2" gutterBottom m={"0.5em 0"}>
-        Milestone <span style={{ color: "#ef0f94" }}>Arts</span>+
-        <span style={{ color: "#f5c73e" }}>Creative writing</span> Newspaper
+    <>
+      <Typography
+        variant="h4"
+        // sx={{ fontSize: "h3" }}
+        component="h2"
+        gutterBottom
+        m={"0.5em 0"}
+      >
+        Milestone{" "}
+        <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts</span>+
+        <span style={{ color: "#f5c73e", fontFamily: "MyUnderwood" }}>
+          Creative writing
+        </span>{" "}
+        Publications
       </Typography>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Grid container>
-          <Grid item xs={4}>
-            <CenterImg>
-              <Box
-                sx={{ borderRadius: 1, height: size }}
-                src={artsImg}
-                component={"img"}
-              ></Box>
-            </CenterImg>
-          </Grid>
-          <Grid item xs={4}>
-            <CenterImg>
-              <Typography variant="h1" component="h2">
-                +
-              </Typography>
-            </CenterImg>
-          </Grid>
-          <Grid item xs={4}>
-            <CenterImg>
-              <Box
-                sx={{ borderRadius: 1, height: size }}
-                src={cwcImg}
-                component={"img"}
-              ></Box>
-            </CenterImg>
-            {/* <p>Creative Writing Community</p> */}
-            {/* https://milestone.instructure.com/courses/1400/pages/creative-writing-community-2023-slash-24 */}
-          </Grid>
+      <Grid container>
+        <Grid item xs={4}>
+          <CenterImg>
+            <Box
+              sx={{ borderRadius: 1, height: size }}
+              src={artsImg}
+              component={"img"}
+              draggable={false}
+            ></Box>
+          </CenterImg>
         </Grid>
-      </Box>
-    </Box>
+        <Grid item xs={4}>
+          <CenterImg>
+            <Typography
+              variant="h1"
+              component="h2"
+              fontFamily={"cursive"}
+              sx={{ userSelect: "none" }}
+            >
+              +
+            </Typography>
+          </CenterImg>
+        </Grid>
+        <Grid item xs={4}>
+          <CenterImg>
+            <Box
+              sx={{ borderRadius: 1, height: size }}
+              src={cwcImg}
+              component={"img"}
+              draggable={false}
+            ></Box>
+          </CenterImg>
+          {/* <p>Creative Writing Community</p> */}
+          {/* https://milestone.instructure.com/courses/1400/pages/creative-writing-community-2023-slash-24 */}
+        </Grid>
+      </Grid>
+    </>
   );
 }
 
@@ -175,7 +233,7 @@ function DataCard({ children }: { children?: React.ReactNode }) {
       <Card>
         <CardMedia
           sx={{ height: 140 }}
-          image={`${faker.image.url()}?random=${faker.datatype.number()}`}
+          image={`${faker.image.url()}?random=${faker.number.int()}`}
           title={faker.lorem.words(2)}
         />
         <CardContent>
@@ -188,7 +246,7 @@ function DataCard({ children }: { children?: React.ReactNode }) {
           </Typography>
           {/* add Author */}
           <Typography variant="body2" color="text.primary">
-            By: {faker.name.firstName()} {faker.name.lastName()}
+            By: {faker.person.firstName()} {faker.person.lastName()}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {faker.lorem.paragraphs(1)}
@@ -196,19 +254,27 @@ function DataCard({ children }: { children?: React.ReactNode }) {
         </CardContent>
 
         <CardActions>
-          <Button size="small" sx={{ marginRight: "auto" }}>
+          <Button variant="contained" size="small" sx={{ marginRight: "auto" }}>
             Read
           </Button>
           <Typography variant="body2" color="text.secondary">
-            {faker.datatype.number(100)}
+            {faker.number.int(100)}
           </Typography>
           <IconButton aria-label="Like">
-            {/* like buttin */}
-            <LikeIcon />
+            {/* 50-50 chance to be enabled or disabled */}
+            {faker.datatype.boolean() ? (
+              <LikeIcon color={"secondary"} />
+            ) : (
+              <LikeIconDisabled color={"secondary"} />
+            )}
           </IconButton>
           <IconButton aria-label="Bookmark">
-            {/* like buttin */}
-            <BookmarkDisabled />
+            {/* 50-50 chance to be enabled or disabled */}
+            {faker.datatype.boolean() ? (
+              <BookmarkEnabled color={"secondary"} />
+            ) : (
+              <BookmarkDisabled color={"secondary"} />
+            )}
           </IconButton>
           {/*  share iconbutton using navgiator.share */}
           {/* <IconButton aria-label="Share">
@@ -235,12 +301,21 @@ function Footer() {
           >
             © 2023 Benedek Nemeth. All rights reserved.
             <br />
-            All logos were made by Milestone Institute and its students.
+            Website development by:{" "}
+            <Typography
+              component="a"
+              href="https://binibeno.hu/en?utm_source=milestone-cwc-arts"
+            >
+              binibeno.hu
+            </Typography>
+            , Benedek Nemeth
             <br />
-            <i>Version: Early Alpha, Not public!</i>
+            All logos appearing on this website are the exclusive property of
+            Milestone Institute.
+            <br />
+            <i>Version: Alpha, Closed testing!</i>
           </Typography>
         </Toolbar>
-        {/* facebook, instagram, twitter buttons centered, in a grey color */}
         <Box
           sx={{
             flexGrow: 1,
@@ -249,13 +324,25 @@ function Footer() {
             gap: "1em",
           }}
         >
-          <IconButton color="inherit" aria-label="Facebook">
+          <IconButton
+            href="https://www.facebook.com/msinst"
+            color="inherit"
+            aria-label="Facebook"
+          >
             <FacebookIcon />
           </IconButton>
-          <IconButton color="inherit" aria-label="Instagram">
+          <IconButton
+            href="https://www.instagram.com/milestone_institute/"
+            color="inherit"
+            aria-label="Instagram"
+          >
             <InstagramIcon />
           </IconButton>
-          <IconButton color="inherit" aria-label="Twitter">
+          <IconButton
+            color="inherit"
+            aria-label="Twitter"
+            href="https://twitter.com/yourmilestone"
+          >
             <TwitterIcon />
           </IconButton>
         </Box>
@@ -264,8 +351,11 @@ function Footer() {
   );
 }
 
-function ResponsiveAppBar() {
-  const pages = ["Home", "About", "Edit page"];
+export function ResponsiveAppBar() {
+  const pages = [
+    { title: "Home", url: "/" },
+    { title: "About", url: "/about" },
+  ];
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -289,21 +379,21 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="https://milestone-institute.org/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              // letterSpacing: "-2px",
             }}
           >
-            News
+            Milestone Institute
           </Typography>
           {/* For mobile */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, pr: 2 }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -334,8 +424,24 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page.title}
+                  onClick={() => {
+                    navigate(page.url);
+                    handleCloseNavMenu();
+                  }}
+                >
+                  <Typography textAlign="center">
+                    <Link
+                      to={page.url}
+                      style={{
+                        color: "inherit",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {page.title}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -363,11 +469,22 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                key={page.title}
+                onClick={() => {
+                  navigate(page.url);
+                  handleCloseNavMenu();
+                }}
+                sx={{ my: 2, display: "block", color: "black" }}
               >
-                {page}
+                <Link
+                  to={page.url}
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                  }}
+                >
+                  {page.title}
+                </Link>
               </Button>
             ))}
           </Box>
@@ -457,30 +574,64 @@ function AppBarSearch() {
 
 // todo: add icons into navbar
 
+//TODO: branches: dev:only me, prod: public on domain, stable: testing on github pages
+
 const IndexPage = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-        {/* <CssBaseline /> */}
+      <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
+        <CssBaseline />
         {/* <<CssBaseline /> */}
         <ResponsiveAppBar />
         <Box component="main" sx={{ p: 3, pt: 0 }}>
           <Intro></Intro>
-          {/* <h2>Your favorites / saved (maybe add into top menu?):</h2> */}
 
-          <h2>Artworks:</h2>
-          <i>Working on it...</i>
-          <h2>Writings:</h2>
+          <Typography variant="body1" component="p" gutterBottom>
+            Welcome to our website! This site serves as a platform to showcase
+            the work of young artists who are looking to build their reputations
+            and increase their exposure in the community. Here, we aim to bring
+            awareness to the talented artists who attend our organization by
+            sharing their creations with the world. To learn more about our team
+            visit the <MUILink href="/about">about page</MUILink>.
+          </Typography>
 
-          {/* <h3>Most popular:</h3> */}
-          <h3>Latest: </h3>
+          <h2>Works:</h2>
+
+          <h3>2023 Summer works:</h3>
+
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
-            alignItems="stretch"
+            alignItems="center"
+            gap={4}
+            justifyContent={"center"}
           >
-            {Array.from(Array(6)).map((_, index) => (
+            {Array.from(Array(2)).map((_, index) => (
+              // TODO: copy auto height thing from main website
+              <Grid
+                // sx={{ display: "100%" }}
+                item
+                xs={4}
+                sm={4}
+                md={4}
+                key={index}
+              >
+                <DataCard />
+              </Grid>
+            ))}
+          </Grid>
+          <h3>2022 Summer term:</h3>
+
+          <Grid
+            container
+            gap={4}
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+            alignItems="stretch"
+            justifyContent={"center"}
+          >
+            {Array.from(Array(2)).map((_, index) => (
               <Grid
                 // sx={{ height: "100%" }}
                 item
@@ -520,8 +671,9 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <body className="my-body-class" />
       <title>Arts CWC newspaper</title>
+      {/* TODO: indexing disabled */}
+      <meta name="robots" content="noindex"></meta>
     </>
   );
 }
