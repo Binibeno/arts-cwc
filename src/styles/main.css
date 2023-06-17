@@ -2,53 +2,18 @@
 /* . = class */
 
 body {
-
-  /* font-size: 15px; */
-  /* font size: best around 16px */
-
-  /* line-height: 1.5; */
-  /* 1.2 to 1.5 OR 24px (Google) */
-
-  /* system defaults, from github and medium */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-
-  /*? OLD */
-  /* font-family: Calibri, Arial, Helvetica, sans-serif, Seravek; */
-
-  background-color: var(--background-color);
-  color: var(--text-color);
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; */
   min-height: 100vh;
   scroll-behavior: smooth;
-  /* margin: 2.5em;  */
   margin: 0;
   padding: 0;
 
   transition: background-color 0.2s;
-
-  /* to limit page width */
-  /* max-width: 2000px; */
-  /* margin: 0 auto; */
-  /* This shouldn't be needed */
-  /* color-scheme: light dark; */
 }
 
 
 
-:root {
-  /*  
-  --fejelecC: hsl(240, 63%, 51%); 
-  --fejelecC: #3333d1; */
 
-  /* --fejelecC: rgb(51, 51, 209); */
-  /* --fejelecC: rgb(38, 100, 198); */
-  --header-color: rgb(38, 100, 198);
-  --border-radius: 16px;
-}
-
-* {
-  box-sizing: border-box;
-  /* transition: background-color 0.2s, color 0.2s; */
-}
 
 
 @media (prefers-color-scheme: dark) {
@@ -89,4 +54,9 @@ body {
   --shadow-color: #a0a0a0;
   --link-color: #272c34;
   color-scheme: light;
+}
+
+a {
+  color: #212529 !important;
+  text-decoration-color: #212529 !important;
 }

@@ -11,6 +11,15 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        custom: {
+          families: ["MyUnderwood"],
+          urls: ["/fonts/typewriter.css"],
+        },
+      },
+    },
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
     {
