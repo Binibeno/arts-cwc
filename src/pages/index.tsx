@@ -1,193 +1,467 @@
-import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
+import * as React from "react";
+import type { HeadFC, PageProps } from "gatsby";
+//this project uses MUI
+import { Button, IconButton } from "@mui/material";
 
-const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-const headingAccentStyles = {
-  color: "#663399",
-}
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-const listStyles = {
-  marginBottom: 96,
-  paddingLeft: 0,
-}
-const doclistStyles = {
-  paddingLeft: 0,
-}
-const listItemStyles = {
-  fontWeight: 300,
-  fontSize: 24,
-  maxWidth: 560,
-  marginBottom: 30,
-}
+// import css
+import "../styles/main.css";
 
-const linkStyle = {
-  color: "#8954A8",
-  fontWeight: "bold",
-  fontSize: 16,
-  verticalAlign: "5%",
-}
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
+import { blue, orange, red } from "@mui/material/colors";
+import {
+  Grid,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  AppBar,
+  Toolbar,
+  CssBaseline,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  MenuItem,
+  Menu,
+  Container,
+  ListItemButton,
+} from "@mui/material";
+import LikeIcon from "@mui/icons-material/ThumbUp";
+import BookmarkDisabled from "@mui/icons-material/TurnedInNot";
+import BookmarkEnabled from "@mui/icons-material/TurnedInNot";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { Share } from "@mui/icons-material";
+import { faker } from "@faker-js/faker";
+import { styled, alpha } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 
-const docLinkStyle = {
-  ...linkStyle,
-  listStyleType: "none",
-  display: `inline-block`,
-  marginBottom: 24,
-  marginRight: 12,
-}
+// MUI sx responsive values:
+//mui.com/system/getting-started/usage/#responsive-values
+/*
+<Box
+  sx={{
+    width: {
+      xs: 100, // theme.breakpoints.up('xs')
+      sm: 200, // theme.breakpoints.up('sm')
+      md: 300, // theme.breakpoints.up('md')
+      lg: 400, // theme.breakpoints.up('lg')
+      xl: 500, // theme.breakpoints.up('xl')
+    },
+  }}
+>
+  This box has a responsive width.
+</Box>*/
 
-const descriptionStyle = {
-  color: "#232129",
-  fontSize: 14,
-  marginTop: 10,
-  marginBottom: 0,
-  lineHeight: 1.25,
-}
+//  import image
+// @ts-ignore
+import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
+// @ts-ignore
+import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this image
 
-const docLinks = [
-  {
-    text: "TypeScript Documentation",
-    url: "https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/",
-    color: "#8954A8",
+// declare module "@mui/material/styles" {
+//   interface Theme {
+//     status: {
+//       danger: string;
+//       primary: string;
+//       mode: string;
+//     };
+//   }
+//   // allow configuration using `createTheme`
+//   interface ThemeOptions {
+//     status?: {
+//       danger?: string;
+//       primary: string;
+
+//       mode: string;
+//     };
+//   }
+// }
+const theme = createTheme({
+  palette: {
+    // primary: orange[500],
+    mode: "dark",
+    primary: {
+      main: blue[600],
+    },
   },
-  {
-    text: "GraphQL Typegen Documentation",
-    url: "https://www.gatsbyjs.com/docs/how-to/local-development/graphql-typegen/",
-    color: "#8954A8",
+});
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function Center({ children }: { children?: React.ReactNode }) {
+  return <Container>{children}</Container>;
+}
+
+function Intro() {
+  function CenterImg({ children }: { children?: React.ReactNode }) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          // alignItems: "center",
+        }}
+      >
+        {children}
+      </Box>
+    );
   }
-]
 
-const badgeStyle = {
-  color: "#fff",
-  backgroundColor: "#088413",
-  border: "1px solid #088413",
-  fontSize: 11,
-  fontWeight: "bold",
-  letterSpacing: 1,
-  borderRadius: 4,
-  padding: "4px 6px",
-  display: "inline-block",
-  position: "relative" as "relative",
-  top: -2,
-  marginLeft: 10,
-  lineHeight: 1,
-}
-
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/getting-started/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
-  },
-  {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
-  },
-  {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
-  },
-  {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
-]
-
-const IndexPage: React.FC<PageProps> = () => {
+  const size = "6rem";
   return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.tsx</code> to see this page
-        update in real-time. 😎
-      </p>
-      <ul style={doclistStyles}>
-        {docLinks.map(doc => (
-          <li key={doc.url} style={docLinkStyle}>
-            <a
-              style={linkStyle}
-              href={`${doc.url}?utm_source=starter&utm_medium=ts-docs&utm_campaign=minimal-starter-ts`}
-            >
-              {doc.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <ul style={listStyles}>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter-ts`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
-    </main>
-  )
+    <Box>
+      <Typography variant="h3" component="h2" gutterBottom m={"0.5em 0"}>
+        Milestone <span style={{ color: "#ef0f94" }}>Arts</span>+
+        <span style={{ color: "#f5c73e" }}>Creative writing</span> Newspaper
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Grid container>
+          <Grid item xs={4}>
+            <CenterImg>
+              <img
+                src={artsImg}
+                alt=""
+                style={{ height: size, borderRadius: "5%" }}
+              />
+            </CenterImg>
+          </Grid>
+          <Grid item xs={4}>
+            <CenterImg>
+              <Typography variant="h1" component="h2">
+                +
+              </Typography>
+            </CenterImg>
+          </Grid>
+          <Grid item xs={4}>
+            <CenterImg>
+              <img
+                src={cwcImg}
+                alt=""
+                style={{ height: size, borderRadius: "5%" }}
+              />
+            </CenterImg>
+            {/* <p>Creative Writing Community</p> */}
+            {/* https://milestone.instructure.com/courses/1400/pages/creative-writing-community-2023-slash-24 */}
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
+  );
 }
 
-export default IndexPage
+function DataCard({ children }: { children?: React.ReactNode }) {
+  return (
+    <Box sx={{ justifyContent: "center" }}>
+      <Card>
+        <CardMedia
+          sx={{ height: 140 }}
+          image={`${faker.image.url()}?random=${faker.datatype.number()}`}
+          title={faker.lorem.words(2)}
+        />
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xs={8}></Grid>
+            <Grid item xs={4}></Grid>
+          </Grid>
+          <Typography gutterBottom variant="h5" component="div">
+            {capitalizeFirstLetter(faker.lorem.words(2))}
+          </Typography>
+          {/* add Author */}
+          <Typography variant="body2" color="text.primary">
+            By: {faker.name.firstName()} {faker.name.lastName()}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {faker.lorem.paragraphs(1)}
+          </Typography>
+        </CardContent>
 
-export const Head: HeadFC = () => <title>Home Page</title>
+        <CardActions>
+          <Button size="small" sx={{ marginRight: "auto" }}>
+            Read
+          </Button>
+          <Typography variant="body2" color="text.secondary">
+            {faker.datatype.number(100)}
+          </Typography>
+          <IconButton aria-label="Like">
+            {/* like buttin */}
+            <LikeIcon />
+          </IconButton>
+          <IconButton aria-label="Bookmark">
+            {/* like buttin */}
+            <BookmarkDisabled />
+          </IconButton>
+          {/*  share iconbutton using navgiator.share */}
+          {/* <IconButton aria-label="Share">
+            <Share />
+          </IconButton> */}
+        </CardActions>
+      </Card>
+    </Box>
+  );
+}
+
+function Footer() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{ padding: "3px 0" }}>
+        <Toolbar>
+          <Typography
+            width={"100%"}
+            textAlign={"center"}
+            variant="body1"
+            color="inherit"
+            // padding={"24px"}
+            component="div"
+          >
+            © 2023 Benedek Nemeth. All rights reserved.
+            <br />
+            All logos were made by Milestone Institute and its students.
+            <br />
+            <i>Version: Early Alpha, Not public!</i>
+          </Typography>
+        </Toolbar>
+        {/* facebook, instagram, twitter buttons centered, in a grey color */}
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "center",
+            gap: "1em",
+          }}
+        >
+          <IconButton color="inherit" aria-label="Facebook">
+            <FacebookIcon />
+          </IconButton>
+          <IconButton color="inherit" aria-label="Instagram">
+            <InstagramIcon />
+          </IconButton>
+          <IconButton color="inherit" aria-label="Twitter">
+            <TwitterIcon />
+          </IconButton>
+        </Box>
+      </AppBar>
+    </Box>
+  );
+}
+
+function ResponsiveAppBar() {
+  const pages = ["Home", "About", "Edit page"];
+
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          {/* For desktop */}
+          {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            News
+          </Typography>
+          {/* For mobile */}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            {/* drop down menu for mobile */}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            News
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+
+          {/* <SearchAppBar /> */}
+
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+            sx={{ display: { md: "none", xs: "flex" } }}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
+
+// todo: add editing page
+// todo: add search
+//todo:add like button counter
+// todo: add viewcounter
+// todo: add analytics
+// todo: list alll authors inside of about
+// todo: add share button
+// todo: login using milestone id and masterpassword
+
+// todo: add icons into navbar
+
+const IndexPage = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ flexGrow: 1 }}>
+        {/* <CssBaseline /> */}
+        {/* <<CssBaseline /> */}
+        <ResponsiveAppBar />
+        <Box component="main" sx={{ p: 3 }}>
+          <Intro></Intro>
+          {/* <h2>Your favorites / saved (maybe add into top menu?):</h2> */}
+
+          <h2>Artworks:</h2>
+          <i>Working on it...</i>
+          <h2>Writings:</h2>
+
+          {/* <h3>Most popular:</h3> */}
+          <h3>Latest: </h3>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+            alignItems="stretch"
+          >
+            {Array.from(Array(6)).map((_, index) => (
+              <Grid
+                // sx={{ height: "100%" }}
+                item
+                xs={4}
+                sm={4}
+                md={4}
+                key={index}
+              >
+                <DataCard />
+              </Grid>
+            ))}
+          </Grid>
+          <Container
+            maxWidth="sm"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button variant="contained" sx={{ marginTop: "1em" }}>
+              Load more
+            </Button>
+          </Container>
+        </Box>
+      </Box>
+      <Footer />
+    </ThemeProvider>
+  );
+};
+
+//add a head component using the Head API
+
+export default IndexPage;
+
+export function Head() {
+  return (
+    <>
+      <html lang="en" />
+      <body className="my-body-class" />
+      <title>Arts CWC newspaper</title>
+    </>
+  );
+}
