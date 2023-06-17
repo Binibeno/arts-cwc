@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 //this project uses MUI
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, TextField } from "@mui/material";
 
 // import css
 import "../styles/main.css";
@@ -86,6 +86,9 @@ import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this i
 //   }
 // }
 const theme = createTheme({
+  typography: {
+    fontSize: 16,
+  },
   palette: {
     // primary: orange[500],
     mode: "dark",
@@ -117,7 +120,8 @@ function Intro() {
     );
   }
 
-  const size = "6rem";
+  const size = "6.857142857142857rem";
+  // TODO: auto get (see responsive docs)
   return (
     <Box>
       <Typography variant="h3" component="h2" gutterBottom m={"0.5em 0"}>
@@ -134,11 +138,11 @@ function Intro() {
         <Grid container>
           <Grid item xs={4}>
             <CenterImg>
-              <img
+              <Box
+                sx={{ borderRadius: 1, height: size }}
                 src={artsImg}
-                alt=""
-                style={{ height: size, borderRadius: "5%" }}
-              />
+                component={"img"}
+              ></Box>
             </CenterImg>
           </Grid>
           <Grid item xs={4}>
@@ -150,11 +154,11 @@ function Intro() {
           </Grid>
           <Grid item xs={4}>
             <CenterImg>
-              <img
+              <Box
+                sx={{ borderRadius: 1, height: size }}
                 src={cwcImg}
-                alt=""
-                style={{ height: size, borderRadius: "5%" }}
-              />
+                component={"img"}
+              ></Box>
             </CenterImg>
             {/* <p>Creative Writing Community</p> */}
             {/* https://milestone.instructure.com/courses/1400/pages/creative-writing-community-2023-slash-24 */}
@@ -277,7 +281,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth={false}>
         <Toolbar disableGutters>
           {/* For desktop */}
           {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
@@ -337,7 +341,8 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
           {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          <Typography
+          {/* TODO: disabled */}
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -354,7 +359,7 @@ function ResponsiveAppBar() {
             }}
           >
             News
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -367,8 +372,8 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          {/* <SearchAppBar /> */}
-
+          <AppBarSearch />
+          {/* 
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -379,13 +384,68 @@ function ResponsiveAppBar() {
             sx={{ display: { md: "none", xs: "flex" } }}
           >
             <SearchIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
 
+function AppBarSearch() {
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        borderRadius: 1,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        "&:hover": {
+          backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: "100%",
+        [theme.breakpoints.up("sm")]: {
+          marginLeft: theme.spacing(1),
+          width: "auto",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          padding: theme.spacing(0, 2),
+          height: "100%",
+          position: "absolute",
+          pointerEvents: "none",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <SearchIcon />
+      </Box>
+      <InputBase
+        // color=''
+        sx={{
+          color: "inherit",
+          "& .MuiInputBase-input": {
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create("width"),
+            width: "100%",
+            [theme.breakpoints.up("sm")]: {
+              width: "12ch",
+              "&:focus": {
+                width: "20ch",
+              },
+            },
+          },
+        }}
+        placeholder="Search…"
+        inputProps={{ "aria-label": "search" }}
+      />
+    </Box>
+  );
+}
 // todo: add editing page
 // todo: add search
 //todo:add like button counter
@@ -404,7 +464,7 @@ const IndexPage = () => {
         {/* <CssBaseline /> */}
         {/* <<CssBaseline /> */}
         <ResponsiveAppBar />
-        <Box component="main" sx={{ p: 3 }}>
+        <Box component="main" sx={{ p: 3, pt: 0 }}>
           <Intro></Intro>
           {/* <h2>Your favorites / saved (maybe add into top menu?):</h2> */}
 
@@ -434,7 +494,7 @@ const IndexPage = () => {
             ))}
           </Grid>
           <Container
-            maxWidth="sm"
+            maxWidth={false}
             sx={{
               display: "flex",
               justifyContent: "center",
