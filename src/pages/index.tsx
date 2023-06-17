@@ -609,11 +609,18 @@ const IndexPage = () => {
               justifyContent: "center",
               alignItems: "stretch",
               gap: 4,
+              flexWrap: { md: "nowrap", xs: "wrap" },
             }}
           >
             {Array.from(Array(2)).map((_, index) => (
-              <Box sx={{ maxWidth: `${100 / 2}%`, flexBasis: `${100 / 2}%` }}>
-                <DataCard key={index} />
+              <Box
+                sx={{
+                  maxWidth: { md: `${100 / 2}%}`, xs: "unset" },
+                  flexBasis: { md: `${100 / 2}%`, xs: "unset" },
+                }}
+                key={index}
+              >
+                <DataCard />
               </Box>
             ))}
           </Box>
@@ -624,11 +631,18 @@ const IndexPage = () => {
               justifyContent: "center",
               alignItems: "stretch",
               gap: 4,
+              flexWrap: { md: "nowrap", xs: "wrap" },
             }}
           >
             {Array.from(Array(2)).map((_, index) => (
-              <Box sx={{ maxWidth: `${100 / 2}%`, flexBasis: `${100 / 2}%` }}>
-                <DataCard key={index} />
+              <Box
+                sx={{
+                  maxWidth: { md: `${100 / 2}%}`, xs: "unset" },
+                  flexBasis: { md: `${100 / 2}%`, xs: "unset" },
+                }}
+                key={index}
+              >
+                <DataCard />
               </Box>
             ))}
           </Box>
@@ -659,7 +673,7 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <title>Arts CWC newspaper</title>
+      <title>Milestone Publications</title>
       {/* TODO: indexing disabled */}
       <meta name="robots" content="noindex"></meta>
     </>

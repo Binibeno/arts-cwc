@@ -25,8 +25,8 @@ const config: GatsbyConfig = {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         custom: {
-          families: ["MyUnderwood"],
-          urls: [`${pathPrefix}/fonts/typewriter.css`],
+          families: ["MyUnderwood", "MyUnderwood"],
+          urls: [`${pathPrefix}/fonts/typewriter.css`, `/fonts/typewriter.css`],
         },
       },
     },
