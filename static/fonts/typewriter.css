@@ -2,3 +2,8 @@
   font-family: 'MyUnderwood';
   src: url('/fonts/MyUnderwood.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'MyUnderwood';
+  src: url('/arts-cwc/fonts/MyUnderwood.ttf') format('truetype');
+}
