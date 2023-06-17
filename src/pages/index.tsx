@@ -1,49 +1,40 @@
+import { Link, navigate } from "gatsby";
 import * as React from "react";
-import { Link, type HeadFC, type PageProps, navigate } from "gatsby";
 //this project uses MUI
-import { Button, IconButton, Link as MUILink, TextField } from "@mui/material";
+import { Button, IconButton, Link as MUILink } from "@mui/material";
 
 // import css
 import "../styles/main.css";
 
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
-import { blue, orange, red } from "@mui/material/colors";
+import { faker } from "@faker-js/faker";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import LikeIcon from "@mui/icons-material/ThumbUp";
+import LikeIconDisabled from "@mui/icons-material/ThumbUpOutlined";
 import {
-  Grid,
+  default as BookmarkDisabled,
+  default as BookmarkEnabled,
+} from "@mui/icons-material/TurnedInNot";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import {
+  AppBar,
   Box,
   Card,
   CardActions,
   CardContent,
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Drawer,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  MenuItem,
-  Menu,
   Container,
-  ListItemButton,
+  CssBaseline,
+  Grid,
+  Menu,
+  MenuItem,
+  Toolbar,
 } from "@mui/material";
-import LikeIconDisabled from "@mui/icons-material/ThumbUpOutlined";
-import LikeIcon from "@mui/icons-material/ThumbUp";
-import BookmarkDisabled from "@mui/icons-material/TurnedInNot";
-import BookmarkEnabled from "@mui/icons-material/TurnedInNot";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { Share } from "@mui/icons-material";
-import { faker } from "@faker-js/faker";
-import { styled, alpha } from "@mui/material/styles";
+import CardMedia from "@mui/material/CardMedia";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import Typography from "@mui/material/Typography";
+import { ThemeProvider, alpha, createTheme } from "@mui/material/styles";
 
 // MUI sx responsive values:
 //mui.com/system/getting-started/usage/#responsive-values
@@ -67,6 +58,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
 // @ts-ignore
 import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this image
+// @ts-ignore
+import { graphql, useStaticQuery } from "gatsby";
+// @ts-ignore
+import relativeDate from "tiny-relative-date";
 
 // declare module "@mui/material/styles" {
 //   interface Theme {
@@ -229,67 +224,72 @@ function Intro() {
 
 function DataCard({ children }: { children?: React.ReactNode }) {
   return (
-    <Box sx={{ justifyContent: "center" }}>
-      <Card>
-        <CardMedia
-          sx={{ height: 140 }}
-          image={`${faker.image.url()}?random=${faker.number.int()}`}
-          title={faker.lorem.words(2)}
-        />
-        <CardContent>
-          <Grid container spacing={2}>
-            <Grid item xs={8}></Grid>
-            <Grid item xs={4}></Grid>
-          </Grid>
-          <Typography gutterBottom variant="h5" component="div">
-            {capitalizeFirstLetter(faker.lorem.words(2))}
-          </Typography>
-          {/* add Author */}
-          <Typography variant="body2" color="text.primary">
-            By: {faker.person.firstName()} {faker.person.lastName()}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {faker.lorem.paragraphs(1)}
-          </Typography>
-        </CardContent>
+    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image={`${faker.image.url()}?random=${faker.number.int()}`}
+        title={faker.lorem.words(2)}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {capitalizeFirstLetter(faker.lorem.words(2))}
+        </Typography>
+        {/* add Author */}
+        <Typography variant="body2" color="text.primary">
+          By: {faker.person.firstName()} {faker.person.lastName()}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {faker.lorem.paragraphs(2)}
+        </Typography>
+      </CardContent>
 
-        <CardActions>
-          <Button variant="contained" size="small" sx={{ marginRight: "auto" }}>
-            Read
-          </Button>
-          <Typography variant="body2" color="text.secondary">
-            {faker.number.int(100)}
-          </Typography>
-          <IconButton aria-label="Like">
-            {/* 50-50 chance to be enabled or disabled */}
-            {faker.datatype.boolean() ? (
-              <LikeIcon color={"secondary"} />
-            ) : (
-              <LikeIconDisabled color={"secondary"} />
-            )}
-          </IconButton>
-          <IconButton aria-label="Bookmark">
-            {/* 50-50 chance to be enabled or disabled */}
-            {faker.datatype.boolean() ? (
-              <BookmarkEnabled color={"secondary"} />
-            ) : (
-              <BookmarkDisabled color={"secondary"} />
-            )}
-          </IconButton>
-          {/*  share iconbutton using navgiator.share */}
-          {/* <IconButton aria-label="Share">
+      <CardActions sx={{ mt: "auto" }}>
+        <Button variant="contained" size="small" sx={{ marginRight: "auto" }}>
+          Read
+        </Button>
+        <Typography variant="body2" color="text.secondary">
+          {faker.number.int(100)}
+        </Typography>
+        <IconButton aria-label="Like">
+          {/* 50-50 chance to be enabled or disabled */}
+          {faker.datatype.boolean() ? (
+            <LikeIcon color={"secondary"} />
+          ) : (
+            <LikeIconDisabled color={"secondary"} />
+          )}
+        </IconButton>
+        <IconButton aria-label="Bookmark">
+          {/* 50-50 chance to be enabled or disabled */}
+          {faker.datatype.boolean() ? (
+            <BookmarkEnabled color={"secondary"} />
+          ) : (
+            <BookmarkDisabled color={"secondary"} />
+          )}
+        </IconButton>
+        {/*  share iconbutton using navgiator.share */}
+        {/* <IconButton aria-label="Share">
             <Share />
           </IconButton> */}
-        </CardActions>
-      </Card>
-    </Box>
+      </CardActions>
+    </Card>
   );
 }
 
-function Footer() {
+export function Footer() {
+  const query = useStaticQuery(graphql`
+    query {
+      site {
+        buildTime
+      }
+    }
+  `);
+
+  const buildTime = new Date(query.site.buildTime);
+  const buildTimeRelative = relativeDate(buildTime);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ padding: "3px 0" }}>
+      <AppBar position="static" sx={{ padding: "3px 0" }} component={"div"}>
         <Toolbar>
           <Typography
             width={"100%"}
@@ -298,9 +298,11 @@ function Footer() {
             color="inherit"
             // padding={"24px"}
             component="div"
+            pt={2}
+            pb={2}
           >
-            © 2023 Benedek Nemeth. All rights reserved.
-            <br />
+            {/* © 2023 Benedek Nemeth. All rights reserved. */}
+            {/* <br /> */}
             Website development by:{" "}
             <Typography
               component="a"
@@ -308,10 +310,13 @@ function Footer() {
             >
               binibeno.hu
             </Typography>
-            , Benedek Nemeth
+            , © 2023 Benedek Nemeth
             <br />
             All logos appearing on this website are the exclusive property of
             Milestone Institute.
+            <br />
+            {/* https://benborgers.com/posts/gatsby-last-built */}
+            Last Updated: {buildTimeRelative}
             <br />
             <i>Version: Alpha, Closed testing!</i>
           </Typography>
@@ -599,51 +604,35 @@ const IndexPage = () => {
 
           <h3>2023 Summer works:</h3>
 
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            alignItems="center"
-            gap={4}
-            justifyContent={"center"}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "stretch",
+              gap: 4,
+            }}
           >
             {Array.from(Array(2)).map((_, index) => (
-              // TODO: copy auto height thing from main website
-              <Grid
-                // sx={{ display: "100%" }}
-                item
-                xs={4}
-                sm={4}
-                md={4}
-                key={index}
-              >
-                <DataCard />
-              </Grid>
+              <Box sx={{ maxWidth: `${100 / 2}%`, flexBasis: `${100 / 2}%` }}>
+                <DataCard key={index} />
+              </Box>
             ))}
-          </Grid>
+          </Box>
           <h3>2022 Summer term:</h3>
-
-          <Grid
-            container
-            gap={4}
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            alignItems="stretch"
-            justifyContent={"center"}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "stretch",
+              gap: 4,
+            }}
           >
             {Array.from(Array(2)).map((_, index) => (
-              <Grid
-                // sx={{ height: "100%" }}
-                item
-                xs={4}
-                sm={4}
-                md={4}
-                key={index}
-              >
-                <DataCard />
-              </Grid>
+              <Box sx={{ maxWidth: `${100 / 2}%`, flexBasis: `${100 / 2}%` }}>
+                <DataCard key={index} />
+              </Box>
             ))}
-          </Grid>
+          </Box>
           <Container
             maxWidth={false}
             sx={{

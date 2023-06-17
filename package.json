@@ -33,7 +33,8 @@
     "gatsby-source-filesystem": "^5.11.0",
     "gatsby-transformer-sharp": "^5.11.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tiny-relative-date": "^1.3.0"
   },
   "devDependencies": {
     "@types/node": "^20.2.6",

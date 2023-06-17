@@ -44,7 +44,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { theme, ResponsiveAppBar } from ".";
+import { theme, ResponsiveAppBar, Footer } from ".";
 const About = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -108,6 +108,7 @@ const About = () => {
           </ul>
         </Typography>
       </Box>
+      <Footer />
     </ThemeProvider>
   );
 };
