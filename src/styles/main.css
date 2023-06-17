@@ -13,9 +13,6 @@ body {
 
 
 
-
-
-
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: white;
