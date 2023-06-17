@@ -1,7 +1,9 @@
 import type { GatsbyConfig } from "gatsby";
 
+const pathPrefix = "/arts-cwc";
+
 const config: GatsbyConfig = {
-  pathPrefix: "/arts-cwc",
+  pathPrefix: pathPrefix,
   siteMetadata: {
     title: `ArtsCWC`,
     siteUrl: `https://binibeno.github.io/arts-cwc/`,
@@ -12,11 +14,19 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/, // See below to configure properly
+        },
+      },
+    },
+    {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         custom: {
           families: ["MyUnderwood"],
-          urls: ["/fonts/typewriter.css"],
+          urls: [`${pathPrefix}/fonts/typewriter.css`],
         },
       },
     },

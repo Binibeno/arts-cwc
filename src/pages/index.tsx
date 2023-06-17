@@ -569,6 +569,7 @@ function AppBarSearch() {
   );
 }
 // todo: add editing page
+// todo: add milestone icon
 // todo: add search
 //todo:add like button counter
 // todo: add viewcounter
@@ -576,8 +577,6 @@ function AppBarSearch() {
 // todo: list alll authors inside of about
 // todo: add share button
 // todo: login using milestone id and masterpassword
-
-// todo: add icons into navbar
 
 //TODO: branches: dev:only me, prod: public on domain, stable: testing on github pages
 
