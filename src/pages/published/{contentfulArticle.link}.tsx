@@ -1,20 +1,16 @@
 //this project uses MUI
-import { Link as MUILink } from "@mui/material";
 
 // import css
 import "../../styles/main.css";
 
+import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 import { Box, CssBaseline } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
-import { Footer, ResponsiveAppBar, theme } from "../index";
-import React from "react";
 import { graphql } from "gatsby";
-import {
-  ContentfulRichTextGatsbyReference,
-  RenderRichTextData,
-  renderRichText,
-} from "gatsby-source-contentful/rich-text";
+import { renderRichText } from "gatsby-source-contentful/rich-text";
+import React from "react";
+import { Footer, ResponsiveAppBar, theme } from "../../components/general";
 export type ArticleType = {
   contentfulArticle: {
     link: string;
@@ -24,9 +20,9 @@ export type ArticleType = {
     creationDate: string;
   };
 };
+
 const Bold = ({ children }: any) => <span className="bold">{children}</span>;
 const Text = ({ children }: any) => <p className="align-center">{children}</p>;
-import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 const options = {
   renderMark: {
     [MARKS.BOLD]: (text: string) => <Bold>{text}</Bold>,

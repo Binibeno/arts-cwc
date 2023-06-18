@@ -5,13 +5,10 @@ import { Link as MUILink } from "@mui/material";
 // import css
 import "../styles/main.css";
 
-import {
-  Box,
-  CssBaseline
-} from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
-import { Footer, ResponsiveAppBar, theme } from ".";
+import { Footer, ResponsiveAppBar, theme } from "../components/general";
 const About = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -32,7 +29,7 @@ const About = () => {
           the Creative Writing Community.
         </Typography>
 
-        <Typography variant="body1" component="p" gutterBottom>
+        <Typography variant="body1" component="span">
           Special thanks to the following people for their contributions to this
           project:
           <ul>
@@ -43,9 +40,9 @@ const About = () => {
             <li>Benedek Németh: Milestone student, Website developer</li>
           </ul>
         </Typography>
-        <Typography variant="body1" component="p" gutterBottom>
-          With any questions, comments, or concerns, please contact us at
-          {/* list of links */}
+        <br />
+        <Typography variant="body1" component="span">
+          With any questions, comments, or concerns, you can reach us at:
           <ul>
             <li>
               <MUILink href="mailto:contact@binibeno.hu">
