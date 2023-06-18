@@ -1,50 +1,17 @@
 import * as React from "react";
-import { Link, type HeadFC, type PageProps, navigate } from "gatsby";
 //this project uses MUI
-import { Button, IconButton, Link as MUILink, TextField } from "@mui/material";
+import { Link as MUILink } from "@mui/material";
 
 // import css
 import "../styles/main.css";
 
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
-import { blue, orange, red } from "@mui/material/colors";
 import {
-  Grid,
   Box,
-  Card,
-  CardActions,
-  CardContent,
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Drawer,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  MenuItem,
-  Menu,
-  Container,
-  ListItemButton,
+  CssBaseline
 } from "@mui/material";
-import LikeIconDisabled from "@mui/icons-material/ThumbUpOutlined";
-import LikeIcon from "@mui/icons-material/ThumbUp";
-import BookmarkDisabled from "@mui/icons-material/TurnedInNot";
-import BookmarkEnabled from "@mui/icons-material/TurnedInNot";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { Share } from "@mui/icons-material";
-import { faker } from "@faker-js/faker";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import { theme, ResponsiveAppBar, Footer } from ".";
+import Typography from "@mui/material/Typography";
+import { ThemeProvider } from "@mui/material/styles";
+import { Footer, ResponsiveAppBar, theme } from ".";
 const About = () => {
   return (
     <ThemeProvider theme={theme}>

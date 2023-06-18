@@ -62,6 +62,7 @@ import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this i
 import { graphql, useStaticQuery } from "gatsby";
 // @ts-ignore
 import relativeDate from "tiny-relative-date";
+import { ArticleType } from "./published/{contentfulArticle.link}";
 
 // declare module "@mui/material/styles" {
 //   interface Theme {
@@ -581,6 +582,18 @@ function AppBarSearch() {
 //TODO: branches: dev:only me, prod: public on domain, stable: testing on github pages
 
 const IndexPage = () => {
+  // query all articles
+  // const allDocs: ArticleType[] = useStaticQuery(graphql`
+  //   {
+  //     allContentfulArticle {
+  //       nodes {
+  //         link
+  //         id
+  //       }
+  //     }
+  //   }
+  // `);
+  const allDocs: ArticleType[] = [];
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
@@ -612,7 +625,7 @@ const IndexPage = () => {
               flexWrap: { md: "nowrap", xs: "wrap" },
             }}
           >
-            {Array.from(Array(2)).map((_, index) => (
+            {Array.from(allDocs).map((_, index) => (
               <Box
                 sx={{
                   maxWidth: { md: `${100 / 2}%}`, xs: "unset" },
