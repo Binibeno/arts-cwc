@@ -18,8 +18,8 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: `lnx6p1dpjtms`,
-        accessToken: `ZHK2DUoPcUI3aU4UWtYfQMVLnomIoqFUVuj5ac_pByo`, // published
-        // host: `preview.contentful.com`,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        host: `preview.contentful.com`,
       },
     },
     {
