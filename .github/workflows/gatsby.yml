@@ -32,6 +32,8 @@ defaults:
 jobs:
   # Build job
   build:
+    # Environment variables and secrets
+    environment: github-pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -95,3 +97,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        
+
