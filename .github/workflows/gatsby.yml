@@ -64,9 +64,9 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           file_name: .env.production
-          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-          CONTENTFUL_HOST: ${{ vars.CONTENTFUL_HOST }}
-          CONTENTFUL_SPACE_ID: ${{ vars.CONTENTFUL_SPACE_ID }}
+          envkey_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          envkey_CONTENTFUL_HOST: ${{ vars.CONTENTFUL_HOST }}
+          envkey_CONTENTFUL_SPACE_ID: ${{ vars.CONTENTFUL_SPACE_ID }}
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
