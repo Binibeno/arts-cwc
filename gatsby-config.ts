@@ -6,7 +6,7 @@ require("dotenv").config({
 console.log(`Loading .env.${process.env.NODE_ENV}`); // remove
 console.log(`Contentful config loaded:`, {
   spaceId: `lnx6p1dpjtms`,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  // accessToken: process.env.CONTENTFUL_ACCESS_TOKEN, // NOT INCLUDED FOR SECURITY
   host: process.env.CONTENTFUL_HOST,
 }); // remove
 
@@ -16,7 +16,7 @@ const config: GatsbyConfig = {
   pathPrefix: pathPrefix,
   siteMetadata: {
     title: `ArtsCWC`,
-    siteUrl: `https://binibeno.github.io/arts-cwc/`,
+    siteUrl: `https://binibeno.github.io`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin

@@ -66,10 +66,6 @@ import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this i
 // @ts-ignore
 import { Link, graphql } from "gatsby";
 
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 function Intro() {
   function CenterImg({ children }: { children?: React.ReactNode }) {
     return (
@@ -90,13 +86,7 @@ function Intro() {
   // TODO: auto get (see responsive docs)
   return (
     <>
-      <Typography
-        variant="h4"
-        // sx={{ fontSize: "h3" }}
-        component="h2"
-        gutterBottom
-        m={"0.5em 0"}
-      >
+      <Typography variant="h4" component="h2" gutterBottom m={"0.5em 0"}>
         Milestone{" "}
         <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts</span>+
         <span style={{ color: "#f5c73e", fontFamily: "MyUnderwood" }}>
@@ -230,6 +220,9 @@ function DataCard({
 // TODO: https://www.gatsbyjs.com/plugins/gatsby-source-contentful/#displaying-responsive-image-with-gatsby-plugin-image
 // imageloading optimization
 
+// TODO: Most read, or New or Hot
+// TODO: Add Reading list
+
 type singleArticleType = {
   link: string;
   title: string;
@@ -242,8 +235,9 @@ type singleArticleType = {
 
 const IndexPage = ({ data }: { data: any }) => {
   // query all articles
-  const allDocs: singleArticleType[] = data.allContentfulArticle.nodes;
+  let allDocs: singleArticleType[] = data.allContentfulArticle.nodes;
 
+  console.log(allDocs);
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
@@ -262,14 +256,13 @@ const IndexPage = ({ data }: { data: any }) => {
             visit the <MUILink href="/about">about page</MUILink>.
           </Typography>
 
-          {/* <h2>replace h2 with typoegaphy</h2> */}
-          {/* <h2>add reading list and news</h2> */}
+          <br />
 
-          <Typography component={"h2"} variant="h4" gutterBottom>
+          <Typography component={"h2"} variant="h5" gutterBottom>
             Works:
           </Typography>
 
-          <Typography component={"h3"} variant="h5" gutterBottom>
+          <Typography component={"h3"} variant="h6" gutterBottom>
             2023 Summer works:
           </Typography>
 
@@ -281,14 +274,14 @@ const IndexPage = ({ data }: { data: any }) => {
               justifyContent: "center",
               alignItems: "stretch",
               gap: 4,
-              flexWrap: { md: "nowrap", xs: "wrap" },
+              flexWrap: { md: "wrap", xs: "wrap" },
             }}
           >
             {Array.from(allDocs).map((doc, index) => (
               <Box
                 sx={{
-                  maxWidth: { md: `${100 / 2}%}`, xs: "unset" },
-                  flexBasis: { md: `${100 / 2}%`, xs: "unset" },
+                  // maxWidth: { md: `${100 / 4}%}`, xs: "unset" },
+                  flexBasis: { md: `calc(${100 / 3}% - 22px)`, xs: "unset" },
                 }}
                 key={index}
               >
@@ -306,27 +299,6 @@ const IndexPage = ({ data }: { data: any }) => {
               </Box>
             ))}
           </Box>
-          {/* <h3>2022 Summer term:</h3> */}
-          {/* <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "stretch",
-              gap: 4,
-              flexWrap: { md: "nowrap", xs: "wrap" },
-            }}
-          >
-            {Array.from(Array(2)).map((_, index) => (
-              <Box
-                sx={{
-                  maxWidth: { md: `${100 / 2}%}`, xs: "unset" },
-                  flexBasis: { md: `${100 / 2}%`, xs: "unset" },
-                }}
-                key={index}
-              >
-              </Box>
-            ))}
-          </Box> */}
           <Container
             maxWidth={false}
             sx={{
