@@ -1,4 +1,14 @@
 import type { GatsbyConfig } from "gatsby";
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
+console.log(`Loading .env.${process.env.NODE_ENV}`); // remove
+console.log(`Contentful config loaded:`, {
+  spaceId: `lnx6p1dpjtms`,
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  host: process.env.CONTENTFUL_HOST,
+}); // remove
 
 const pathPrefix = "/arts-cwc";
 

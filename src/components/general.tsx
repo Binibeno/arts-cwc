@@ -391,7 +391,9 @@ export function Footer() {
             Milestone Institute.
             <br />
             {/* https://benborgers.com/posts/gatsby-last-built */}
-            Last Updated: {buildTimeRelative}
+            {/* ONLY SHOW ON CLIENT OR THERE WILL BE REHYDRATION ERRORS */}
+            {!(typeof window === "undefined") &&
+              `Last Updated: ${buildTimeRelative}`}
             <br />
             <i>Version: Alpha, Closed testing!</i>
           </Typography>

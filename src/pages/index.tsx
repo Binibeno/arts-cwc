@@ -227,6 +227,9 @@ function DataCard({
 
 //TODO: branches: dev:only me, prod: public on domain, stable: testing on github pages
 
+// TODO: https://www.gatsbyjs.com/plugins/gatsby-source-contentful/#displaying-responsive-image-with-gatsby-plugin-image
+// imageloading optimization
+
 type singleArticleType = {
   link: string;
   title: string;
@@ -250,7 +253,7 @@ const IndexPage = ({ data }: { data: any }) => {
         <Box component="main" sx={{ p: 3, pt: 0 }}>
           <Intro></Intro>
 
-          <Typography variant="body1" component="p" gutterBottom>
+          <Typography component="p" gutterBottom>
             Welcome to our website! This site serves as a platform to showcase
             the work of young artists who are looking to build their reputations
             and increase their exposure in the community. Here, we aim to bring
@@ -259,9 +262,18 @@ const IndexPage = ({ data }: { data: any }) => {
             visit the <MUILink href="/about">about page</MUILink>.
           </Typography>
 
-          <h2>Works:</h2>
+          {/* <h2>replace h2 with typoegaphy</h2> */}
+          {/* <h2>add reading list and news</h2> */}
 
-          <h3>2023 Summer works:</h3>
+          <Typography component={"h2"} variant="h4" gutterBottom>
+            Works:
+          </Typography>
+
+          <Typography component={"h3"} variant="h5" gutterBottom>
+            2023 Summer works:
+          </Typography>
+
+          {/* <h3>2023 Summer works:</h3> */}
 
           <Box
             sx={{
@@ -322,11 +334,7 @@ const IndexPage = ({ data }: { data: any }) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <Button variant="contained" sx={{ marginTop: "1em" }}>
-              Load more
-            </Button>
-          </Container>
+          ></Container>
         </Box>
       </Box>
       <Footer />
