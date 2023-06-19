@@ -65,7 +65,6 @@ import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this
 import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this image
 // @ts-ignore
 import { Link, graphql } from "gatsby";
-import { ArticleType } from "./published/{contentfulArticle.link}";
 
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -183,7 +182,7 @@ function DataCard({
 
       <CardActions sx={{ mt: "auto" }}>
         <Button
-          href="{`/pupublished/${link}`}"
+          href={`/published/${link}`}
           variant="contained"
           size="small"
           sx={{ marginRight: "auto" }}
@@ -290,7 +289,7 @@ const IndexPage = ({ data }: { data: any }) => {
                   isLiked={true}
                   likeCount={4}
                   title={doc.title}
-                  link=""
+                  link={doc.link}
                 />
               </Box>
             ))}
