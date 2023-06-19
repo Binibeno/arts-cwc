@@ -18,6 +18,9 @@ import {
   Typography,
   InputBase,
   Link,
+  Autocomplete,
+  TextField,
+  AutocompleteRenderInputParams,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import {
@@ -160,58 +163,128 @@ export const theme = createTheme({
 });
 
 function AppBarSearch() {
+  const allDocs = [
+    {
+      link: "fluffy-blueberry-pancakes",
+      id: "07437cd0-f2e9-5ebe-899a-4cc8f047e5d2",
+      title: "Fluffy Blueberry Pancakes",
+      author: "ChatGPT",
+      description: {
+        description:
+          "Start your day off right with these heavenly fluffy blueberry pancakes. Packed with plump and juicy blueberries, these pancakes are a delightful combination of fluffy texture and bursts of fruity sweetness, making them an instant breakfast favourite.",
+      },
+      documentBody: {
+        raw: '{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Ingredients:","nodeType":"text"}],"nodeType":"paragraph"},{"data":{},"content":[{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup all-purpose flour","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 tablespoons granulated sugar","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 teaspoons baking powder","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1/2 teaspoon salt","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup milk","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 large egg","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 tablespoons unsalted butter, melted","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup fresh blueberries","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Optional toppings: maple syrup, additional blueberries, powdered sugar","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"}],"nodeType":"unordered-list"},{"data":{},"content":[{"data":{},"marks":[],"value":"Instructions:","nodeType":"text"}],"nodeType":"paragraph"},{"data":{},"content":[{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"In a large mixing bowl, whisk together the flour, sugar, baking powder, and salt until well combined.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"In a separate bowl, whisk together the milk and egg until thoroughly mixed.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Pour the milk and egg mixture into the dry ingredients. Add the melted butter as well. Stir the batter gently until just combined. Be careful not to overmix; a few lumps are okay.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Gently fold in the fresh blueberries into the batter, being careful not to crush them.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Let the batter rest for about 5 minutes to allow it to thicken slightly.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Preheat a non-stick skillet or griddle over medium heat. You can lightly grease it with butter or cooking spray if desired.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Once the skillet is hot, ladle about 1/4 cup of batter onto the skillet for each pancake.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Cook until bubbles start to form on the surface of the pancake, then flip it with a spatula. Cook for another 1-2 minutes, or until golden brown.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Repeat the process with the remaining batter, adding more butter or cooking spray to the skillet as needed.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Serve the pancakes warm with your favorite toppings such as maple syrup, additional blueberries, or a dusting of powdered sugar.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"}],"nodeType":"ordered-list"},{"data":{},"content":[{"data":{},"marks":[],"value":"Enjoy your fluffy blueberry pancakes and savor the burst of fruity goodness in every bite!\\n","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"document"}',
+      },
+      coverImage: {
+        url: "https://images.ctfassets.net/lnx6p1dpjtms/5oYHjyzFPmTpPp9gnraTn5/a1c23ddeb236062e47f1703a7601aac7/Blueberry-Pancakes_8.webp",
+      },
+    },
+    {
+      link: "chocolate-chip-cookies",
+      id: "cae181ac-9a6f-5adf-b5c1-0ff28420468a",
+      title: "Chocolate Chip Cookies",
+      author: "ChatGPT",
+      description: {
+        description:
+          "Indulge in the ultimate comfort treat with these irresistible chocolate chip cookies. Each bite is a perfect balance of buttery dough and gooey chocolate chips, creating a heavenly combination that will satisfy your sweet tooth and leave you wanting more.",
+      },
+      documentBody: {
+        raw: '{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Ingredients:","nodeType":"text"}],"nodeType":"paragraph"},{"data":{},"content":[{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup unsalted butter, softened","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup granulated sugar","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup brown sugar, packed","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 large eggs","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 teaspoon vanilla extract","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"3 cups all-purpose flour","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 teaspoon baking soda","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1/2 teaspoon salt","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 cups chocolate chips","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Optional: chopped nuts, such as walnuts or pecans","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"}],"nodeType":"unordered-list"},{"data":{},"content":[{"data":{},"marks":[],"value":"Instructions:","nodeType":"text"}],"nodeType":"paragraph"},{"data":{},"content":[{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Preheat your oven to 350°F (175°C) and line a baking sheet with parchment paper.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"In a large mixing bowl, cream together the softened butter, granulated sugar, and brown sugar until light and fluffy.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Add the eggs, one at a time, mixing well after each addition. Stir in the vanilla extract.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"In a separate bowl, whisk together the flour, baking soda, and salt. Gradually add the dry ingredients to the butter mixture, mixing until just combined.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Fold in the chocolate chips and any optional chopped nuts, ensuring they are evenly distributed throughout the dough.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Using a cookie scoop or tablespoon, drop rounded portions of dough onto the prepared baking sheet, spacing them about 2 inches apart.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Bake in the preheated oven for 10-12 minutes, or until the edges are golden brown. The centers may appear slightly undercooked but will firm up as the cookies cool.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Remove from the oven and allow the cookies to cool on the baking sheet for 5 minutes, then transfer them to a wire rack to cool completely.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Repeat the baking process with the remaining dough until all the cookies are baked.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Once cooled, enjoy these irresistible chocolate chip cookies with a tall glass of milk or as a delightful snack any time of the day.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"}],"nodeType":"ordered-list"},{"data":{},"content":[{"data":{},"marks":[],"value":"Note: Feel free to adjust the chocolate chip quantity or add other mix-ins according to your preference. Get ready to savor the deliciousness of these homemade treats!","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"document"}',
+      },
+      coverImage: {
+        url: "https://images.ctfassets.net/lnx6p1dpjtms/1WdwEA6UGtlcYwbB3lVOVF/bc7750cd6ae70eab8ad3ce61411159f8/JT-Chocolate-Chip-Cookies-master768.jpg",
+      },
+    },
+    {
+      link: "pancake-recipe",
+      id: "4fafdbb9-47d7-5978-970e-e8728ae51d4f",
+      title: "Classic Pancake Recipe",
+      author: "Benedek Nemeth",
+      description: {
+        description:
+          "Whip up everyone's favorite, easy-to-make pancakes in a flash with this mouthwatering recipe by OpenAI's ChatGPT. Perfectly fluffy, lightly sweetened, and topped with your favorite delights, these pancakes will become an instant breakfast sensation.",
+      },
+      documentBody: {
+        raw: '{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Ingredients:","nodeType":"text"}],"nodeType":"paragraph"},{"data":{},"content":[{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup all-purpose flour","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 tablespoons granulated sugar","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 teaspoons baking powder","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1/2 teaspoon salt","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 cup milk","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"1 large egg","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"2 tablespoons unsalted butter, melted","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Optional toppings: maple syrup, fresh fruits, chocolate chips, etc.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"}],"nodeType":"unordered-list"},{"data":{},"content":[{"data":{},"marks":[],"value":"Instructions:","nodeType":"text"}],"nodeType":"paragraph"},{"data":{},"content":[{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"In a large mixing bowl, whisk together the flour, sugar, baking powder, and salt until well combined.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"In a separate bowl, whisk together the milk and egg until thoroughly mixed.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Pour the milk and egg mixture into the dry ingredients. Add the melted butter as well.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Stir the batter gently until just combined. Be careful not to overmix; a few lumps are okay. Let the batter rest for about 5 minutes to allow it to thicken slightly.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Preheat a non-stick skillet or griddle over medium heat. You can lightly grease it with butter or cooking spray if desired.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Once the skillet is hot, ladle about 1/4 cup of batter onto the skillet for each pancake.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Cook until bubbles start to form on the surface of the pancake, then flip it with a spatula. Cook for another 1-2 minutes, or until golden brown.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Repeat the process with the remaining batter, adding more butter or cooking spray to the skillet as needed.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"},{"data":{},"content":[{"data":{},"content":[{"data":{},"marks":[],"value":"Serve the pancakes warm with your favorite toppings, such as maple syrup, fresh fruits, or chocolate chips.","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"list-item"}],"nodeType":"ordered-list"},{"data":{},"content":[{"data":{},"marks":[],"value":"Enjoy your homemade pancakes!","nodeType":"text"}],"nodeType":"paragraph"}],"nodeType":"document"}',
+      },
+      coverImage: {
+        url: "https://images.ctfassets.net/lnx6p1dpjtms/7FD9lWzt2Wh6IHSUT3BMSp/73db7730cc1b46d7492cbebcf8dd3250/21014-Good-old-Fashioned-Pancakes-mfs_001-1fa26bcdedc345f182537d95b6cf92d8.jpg",
+      },
+    },
+  ];
+
   return (
-    <Box
+    <Autocomplete
+      freeSolo
+      disableClearable
+      clearOnBlur
+      // defaultValue="Search..."
+      options={allDocs.map((option) => option.title)}
       sx={{
-        position: "relative",
-        borderRadius: 1,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        "&:hover": {
-          backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: "100%",
-        [theme.breakpoints.up("sm")]: {
-          marginLeft: theme.spacing(1),
-          width: "auto",
-        },
+        width: { xs: "100%", md: "unset" },
       }}
-    >
-      <Box
-        sx={{
-          padding: theme.spacing(0, 2),
-          height: "100%",
-          position: "absolute",
-          pointerEvents: "none",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <SearchIcon />
-      </Box>
-      <InputBase
-        // color=''
-        sx={{
-          color: "inherit",
-          "& .MuiInputBase-input": {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create("width"),
-            width: "100%",
-            [theme.breakpoints.up("sm")]: {
-              width: "12ch",
-              "&:focus": {
-                width: "20ch",
-              },
+      renderInput={(params) => (
+        <Box
+          sx={{
+            position: "relative",
+            borderRadius: 1,
+            backgroundColor: alpha(theme.palette.common.white, 0.15),
+            "&:hover": {
+              backgroundColor: alpha(theme.palette.common.white, 0.25),
             },
-          },
-        }}
-        placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-      />
-    </Box>
+            // marginLeft: { sx: 0, md: "auto" },
+            [theme.breakpoints.up("sm")]: {
+              marginLeft: theme.spacing(1),
+              // width: "auto",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              padding: theme.spacing(0, 2),
+              height: "100%",
+              position: "absolute",
+              pointerEvents: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <SearchIcon />
+          </Box>
+
+          <InputBase
+            {...params}
+            // variant="standard"
+            // color=''
+            sx={{
+              color: "inherit",
+              "& .MuiInputBase-input": {
+                padding: theme.spacing(1, 1, 1, 0),
+                // vertical padding + font size from searchIcon
+                paddingLeft: `calc(1em + ${theme.spacing(4)}) !important`,
+                // transition: theme.transitions.create("width"),
+                [theme.breakpoints.up("sm")]: {
+                  // width: "12ch",
+                  "&:focus": {
+                    // width: "20ch",
+                  },
+                },
+              },
+            }}
+            ref={params.InputProps.ref}
+            placeholder="Search…"
+            // inputProps={{ "aria-label": "search" }}
+            // InputProps={{
+            //   "aria-label": "search",
+            //   ...params.InputProps,
+            //   type: "search",
+            // }}
+          />
+        </Box>
+      )}
+    />
   );
 }
 
@@ -334,7 +407,6 @@ export function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-
           <AppBarSearch />
           {/* 
           <IconButton
@@ -353,8 +425,11 @@ export function ResponsiveAppBar() {
     </AppBar>
   );
 }
-
-export function Footer() {
+//https://traviswimer.com/blog/error-hydration-failed-because-the-initial-ui-does-not-match-what-was-rendered-on-the-server/
+// React hydration expects to have the same thing sent from the server as the first render
+// so neither the server nor the first render should render anything for the first render, so it matches!
+export default function LastModif() {
+  /* https://benborgers.com/posts/gatsby-last-built */
   const query = useStaticQuery(graphql`
     query {
       site {
@@ -366,6 +441,23 @@ export function Footer() {
   const buildTime = new Date(query.site.buildTime);
   const buildTimeRelative = relativeDate(buildTime);
 
+  const [initialRenderComplete, setInitialRenderComplete] =
+    React.useState(false);
+  // This useEffect will only run once, during the first render
+  React.useEffect(() => {
+    // Updating a state causes a re-render
+    setInitialRenderComplete(true);
+  }, []);
+  // initialRenderComplete will be false on the first render and true on all following renders
+  if (!initialRenderComplete) {
+    // Returning null will prevent the component from rendering, so the content will simply be missing from
+    // the server HTML and also wont render during the first client-side render.
+    return null;
+  } else {
+    return `Last Updated: ${buildTimeRelative}`;
+  }
+}
+export function Footer() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ padding: "3px 0" }} component={"div"}>
@@ -385,17 +477,14 @@ export function Footer() {
             <Link href="https://binibeno.hu/en?utm_source=milestone-cwc-arts">
               binibeno.hu
             </Link>
-            , © 2023 Benedek Nemeth
             <br />
             All logos appearing on this website are the exclusive property of
             Milestone Institute.
             <br />
-            {/* https://benborgers.com/posts/gatsby-last-built */}
-            {/* ONLY SHOW ON CLIENT OR THERE WILL BE REHYDRATION ERRORS */}
-            {!(typeof window === "undefined") &&
-              `Last Updated: ${buildTimeRelative}`}
+            <LastModif />
             <br />
             <i>Version: Alpha, Closed testing!</i>
+            <br />© 2023 Benedek Nemeth
           </Typography>
         </Toolbar>
         <Box
