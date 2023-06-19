@@ -370,3 +370,6 @@ export const query = graphql`
     }
   }
 `;
+
+// TODO: preload fonts
+// https://www.gatsbyjs.com/docs/how-to/styling/using-local-fonts/#preload-your-fonts
