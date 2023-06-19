@@ -19,7 +19,7 @@ const config: GatsbyConfig = {
       options: {
         spaceId: `lnx6p1dpjtms`,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        host: `preview.contentful.com`,
+        host: process.env.CONTENTFUL_HOST,
       },
     },
     {
