@@ -288,6 +288,8 @@ function AppBarSearch() {
   );
 }
 
+//TODO: need this https://mui.com/material-ui/react-avatar/#grouped
+
 export function ResponsiveAppBar() {
   const pages = [
     { title: "Home", url: "/" },

@@ -237,7 +237,6 @@ const IndexPage = ({ data }: { data: any }) => {
   // query all articles
   let allDocs: singleArticleType[] = data.allContentfulArticle.nodes;
 
-  console.log(allDocs);
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
