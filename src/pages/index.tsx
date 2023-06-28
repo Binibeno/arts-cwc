@@ -62,78 +62,9 @@ import { Footer, ResponsiveAppBar, theme } from "../components/general";
 // }
 
 import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
-import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this image
 // @ts-ignore
+import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import { Link, graphql } from "gatsby";
-
-function Intro() {
-  function CenterImg({ children }: { children?: React.ReactNode }) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-        }}
-      >
-        {children}
-      </Box>
-    );
-  }
-
-  const size = { md: "6.857142857142857rem", xs: "4.857142857142857rem" };
-  // TODO: auto get (see responsive docs)
-  return (
-    <>
-      <Typography variant="h4" component="h2" gutterBottom m={"0.5em 0"}>
-        Milestone{" "}
-        <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts</span>+
-        <span style={{ color: "#f5c73e", fontFamily: "MyUnderwood" }}>
-          Creative writing
-        </span>{" "}
-        Publications
-      </Typography>
-
-      <Grid container>
-        <Grid item xs={4}>
-          <CenterImg>
-            <Box
-              sx={{ borderRadius: 1, height: size }}
-              src={artsImg}
-              component={"img"}
-              draggable={false}
-            ></Box>
-          </CenterImg>
-        </Grid>
-        <Grid item xs={4}>
-          <CenterImg>
-            <Typography
-              variant="h1"
-              component="h2"
-              fontFamily={"cursive"}
-              sx={{ userSelect: "none" }}
-            >
-              +
-            </Typography>
-          </CenterImg>
-        </Grid>
-        <Grid item xs={4}>
-          <CenterImg>
-            <Box
-              sx={{ borderRadius: 1, height: size }}
-              src={cwcImg}
-              component={"img"}
-              draggable={false}
-            ></Box>
-          </CenterImg>
-          {/* <p>Creative Writing Community</p> */}
-          {/* https://milestone.instructure.com/courses/1400/pages/creative-writing-community-2023-slash-24 */}
-        </Grid>
-      </Grid>
-    </>
-  );
-}
 
 function DataCard({
   title,
@@ -221,7 +152,9 @@ function DataCard({
 // imageloading optimization
 
 // TODO: Most read, or New or Hot
-// TODO: Add Reading list
+
+// TODO: Add Reading list in the navbar
+// TODO: analytics
 
 type singleArticleType = {
   link: string;
@@ -237,16 +170,13 @@ const IndexPage = ({ data }: { data: any }) => {
   // query all articles
   let allDocs: singleArticleType[] = data.allContentfulArticle.nodes;
 
-  console.log(allDocs);
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
         <CssBaseline />
         {/* <<CssBaseline /> */}
-        <ResponsiveAppBar />
+        <ResponsiveAppBar activePage="Home" />
         <Box component="main" sx={{ p: 3, pt: 0 }}>
-          <Intro></Intro>
-
           <Typography component="p" gutterBottom>
             Welcome to our website! This site serves as a platform to showcase
             the work of young artists who are looking to build their reputations
@@ -258,15 +188,18 @@ const IndexPage = ({ data }: { data: any }) => {
 
           <br />
 
-          <Typography component={"h2"} variant="h5" gutterBottom>
+          <Typography
+            component={"h2"}
+            variant="h5"
+            sx={{ fontWeight: "bold" }}
+            gutterBottom
+          >
             Works:
           </Typography>
 
           <Typography component={"h3"} variant="h6" gutterBottom>
             2023 Summer works:
           </Typography>
-
-          {/* <h3>2023 Summer works:</h3> */}
 
           <Box
             sx={{
@@ -322,7 +255,7 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <title>Milestone Publications</title>
+      <title>Milestone Creative Community</title>
       {/* TODO: indexing disabled */}
       <meta name="robots" content="noindex"></meta>
     </>

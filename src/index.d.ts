@@ -8,3 +8,4 @@ declare module "i18next" {
   }
 }
 declare module "*.jpg";
+declare module "*.png";

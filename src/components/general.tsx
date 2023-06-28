@@ -21,6 +21,10 @@ import {
   Autocomplete,
   TextField,
   AutocompleteRenderInputParams,
+  AvatarGroup,
+  Avatar,
+  Tooltip,
+  Stack,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import {
@@ -38,6 +42,11 @@ import {
   LinkProps as RouterLinkProps,
 } from "@reach/router";
 import { LinkProps } from "@mui/material/Link";
+
+import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
+import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
+import historyImg from "../images/history.png"; // Tell webpack this JS file uses this image
+import siteIcon from "../images/icon.png"; // Tell webpack this JS file uses this image
 
 const LinkBehavior = React.forwardRef<
   HTMLAnchorElement,
@@ -75,6 +84,12 @@ const LinkBehavior = React.forwardRef<
 export const theme = createTheme({
   typography: {
     fontSize: 16,
+    h5: {
+      fontFamily: "Times New Roman",
+    },
+    h6: {
+      fontFamily: "Times New Roman",
+    },
     // allVariants: {
     //   color: "#212529",
     // },
@@ -114,6 +129,15 @@ export const theme = createTheme({
             },
             // bluebutton
             backgroundColor: "#19adc3",
+          },
+        },
+        {
+          props: { variant: "outlined" },
+          style: {
+            ":hover": {
+              borderColor: "rgba(33, 37, 41, 1)", // milestone black
+            },
+            borderColor: "rgba(33, 37, 41, 0.4)", // milestone black lighter
           },
         },
       ],
@@ -255,7 +279,8 @@ function AppBarSearch() {
           </Box>
 
           <InputBase
-            {...params}
+            inputProps={params.inputProps}
+            // {...params}
             // variant="standard"
             // color=''
             sx={{
@@ -288,7 +313,13 @@ function AppBarSearch() {
   );
 }
 
-export function ResponsiveAppBar() {
+//TODO: need this https://mui.com/material-ui/react-avatar/#grouped
+
+export function ResponsiveAppBar({
+  activePage,
+}: {
+  activePage: "Home" | "About" | "content";
+}) {
   const pages = [
     { title: "Home", url: "/" },
     { title: "About", url: "/about" },
@@ -307,75 +338,78 @@ export function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth={false}>
-        <Toolbar disableGutters>
-          {/* For desktop */}
-          {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="https://milestone-institute.org/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              color: "inherit",
-              textDecoration: "none",
-              // letterSpacing: "-2px",
-            }}
-          >
-            Milestone Institute
-          </Typography>
-          {/* For mobile */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, pr: 2 }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            {/* drop down menu for mobile */}
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <>
+      <AppBar position="relative">
+        <Container maxWidth={false}>
+          <Toolbar disableGutters>
+            {/* For desktop */}
+            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
+            <img src={siteIcon} style={{ height: "5em" }}></img>
+            <Typography
+              variant="h5"
+              noWrap
+              component="p"
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "serif",
+                fontWeight: 700,
+                color: "inherit",
+                textDecoration: "none",
+                letterSpacing: "-1px",
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page.title}
-                  href={page.url}
-                  onClick={() => {
-                    handleCloseNavMenu();
-                  }}
-                >
-                  {page.title}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          {/* TODO: disabled */}
-          {/* <Typography
+              Creative Community Website
+            </Typography>
+            {/* For mobile */}
+            <Box
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, pr: 2 }}
+            >
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              {/* drop down menu for mobile */}
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem
+                    key={page.title}
+                    href={page.url}
+                    onClick={() => {
+                      handleCloseNavMenu();
+                    }}
+                  >
+                    {page.title}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
+            {/* TODO: disabled */}
+            {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -391,24 +425,31 @@ export function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            News
+          News
           </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.title}
-                href={page.url}
-                onClick={() => {
-                  handleCloseNavMenu();
-                }}
-                sx={{ my: 2, display: "block", color: "black" }}
-              >
-                {page.title}
-              </Button>
-            ))}
-          </Box>
-          <AppBarSearch />
-          {/* 
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  variant={activePage == page.title ? "outlined" : "text"}
+                  key={page.title}
+                  href={page.url}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                  }}
+                  sx={{
+                    my: 2,
+                    mx: 1,
+                    display: "block",
+                    color: "black",
+                    // borderColor: "black",
+                  }}
+                >
+                  {page.title}
+                </Button>
+              ))}
+            </Box>
+            <AppBarSearch />
+            {/* 
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -420,9 +461,53 @@ export function ResponsiveAppBar() {
           >
             <SearchIcon />
           </IconButton> */}
-        </Toolbar>
-      </Container>
-    </AppBar>
+          </Toolbar>
+        </Container>
+        <Stack direction={"row"} justifyContent={"end"} alignItems={"center"}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            mr={2}
+            sx={{ height: "fit-content" }}
+          >
+            Operated by:
+          </Typography>
+          <AvatarGroup>
+            <Tooltip title="Creative Writing Community">
+              <Avatar
+                sx={{ cursor: "pointer", height: "2.7em", width: "2.7em" }}
+                onClick={() => {
+                  navigate("/about");
+                }}
+                alt="Creative Writing Community"
+                src={cwcImg}
+              />
+            </Tooltip>
+            <Tooltip title="Arts Society">
+              <Avatar
+                sx={{ cursor: "pointer", height: "2.7em", width: "2.7em" }}
+                onClick={() => {
+                  navigate("/about");
+                }}
+                alt="Arts Society"
+                src={artsImg}
+              />
+            </Tooltip>
+            <Tooltip title="History Society">
+              <Avatar
+                sx={{ cursor: "pointer", height: "2.7em", width: "2.7em" }}
+                onClick={() => {
+                  navigate("/about");
+                }}
+                alt="History Society"
+                src={historyImg}
+              />
+            </Tooltip>
+          </AvatarGroup>
+        </Stack>
+      </AppBar>
+    </>
   );
 }
 //https://traviswimer.com/blog/error-hydration-failed-because-the-initial-ui-does-not-match-what-was-rendered-on-the-server/

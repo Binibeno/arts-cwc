@@ -15,7 +15,7 @@ const pathPrefix = "/arts-cwc";
 const config: GatsbyConfig = {
   pathPrefix: pathPrefix,
   siteMetadata: {
-    title: `ArtsCWC`,
+    title: `Milestone Publications`,
     siteUrl: `https://binibeno.github.io`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
