@@ -152,7 +152,9 @@ function DataCard({
 // imageloading optimization
 
 // TODO: Most read, or New or Hot
-// TODO: Add Reading list
+
+// TODO: Add Reading list in the navbar
+// TODO: analytics
 
 type singleArticleType = {
   link: string;
@@ -253,7 +255,7 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <title>Milestone Publications</title>
+      <title>Milestone Creative Community</title>
       {/* TODO: indexing disabled */}
       <meta name="robots" content="noindex"></meta>
     </>

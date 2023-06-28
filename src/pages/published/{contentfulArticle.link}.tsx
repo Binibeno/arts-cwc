@@ -143,4 +143,16 @@ export const data = graphql`
   }
 `;
 
+export function Head({ data }: { data: ArticleType }) {
+  return (
+    <>
+      <html lang="en" />
+      <title>
+        {data.contentfulArticle.title} - {data.contentfulArticle.author}
+      </title>
+      <meta name="robots" content="noindex"></meta>
+    </>
+  );
+}
+
 export default Page;
