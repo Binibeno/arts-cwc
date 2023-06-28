@@ -4,7 +4,14 @@
 import "../../styles/main.css";
 
 import { BLOCKS, MARKS } from "@contentful/rich-text-types";
-import { Avatar, Box, Chip, Container, CssBaseline } from "@mui/material";
+import {
+  Avatar,
+  AvatarGroup,
+  Box,
+  Chip,
+  Container,
+  CssBaseline,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import { graphql } from "gatsby";
@@ -81,7 +88,7 @@ const Page = ({ data }: { data: ArticleType }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ResponsiveAppBar />
+      <ResponsiveAppBar activePage="content" />
 
       <Box
         component="main"
