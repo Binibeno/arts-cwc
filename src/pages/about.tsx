@@ -13,6 +13,8 @@ import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import historyImg from "../images/history.png"; // Tell webpack this JS file uses this image
 import siteIcon from "../images/icon.png"; // Tell webpack this JS file uses this image
+
+import AddIcon from "@mui/icons-material/AddRounded";
 function Intro() {
   function CenterImg({ children }: { children?: React.ReactNode }) {
     return (
@@ -38,7 +40,10 @@ function Intro() {
           Creative writing
         </span>{" "}
         + <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts</span>{" "}
-        + <span style={{ fontFamily: "MyUnderwood" }}>History </span>
+        +{" "}
+        <span style={{ fontFamily: "American Typewriter, MyUnderwood" }}>
+          History{" "}
+        </span>
         <span style={{ fontFamily: "serif" }}>Publications</span>
       </Typography>
 
@@ -55,14 +60,7 @@ function Intro() {
         </Grid>
         <Grid item xs={2.4}>
           <CenterImg>
-            <Typography
-              variant="h1"
-              component="h2"
-              fontFamily={"cursive"}
-              sx={{ userSelect: "none" }}
-            >
-              +
-            </Typography>
+            <AddIcon sx={{ fontSize: size }} />
           </CenterImg>
         </Grid>
         <Grid item xs={2.4}>
@@ -77,14 +75,7 @@ function Intro() {
         </Grid>
         <Grid item xs={2.4}>
           <CenterImg>
-            <Typography
-              variant="h1"
-              component="h2"
-              fontFamily={"cursive"}
-              sx={{ userSelect: "none" }}
-            >
-              +
-            </Typography>
+            <AddIcon sx={{ fontSize: size }} />
           </CenterImg>
         </Grid>
         <Grid item xs={2.4}>

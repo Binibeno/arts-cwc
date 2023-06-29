@@ -87,9 +87,9 @@ export const theme = createTheme({
     h5: {
       fontFamily: "Times New Roman",
     },
-    h6: {
-      fontFamily: "Times New Roman",
-    },
+    // h6: {
+    //   fontFamily: "Times New Roman",
+    // },
     // allVariants: {
     //   color: "#212529",
     // },
@@ -342,25 +342,45 @@ export function ResponsiveAppBar({
       <AppBar position="relative">
         <Container maxWidth={false}>
           <Toolbar disableGutters>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <img src={siteIcon} style={{ height: "5em" }}></img>
+            </Box>
             {/* For desktop */}
-            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-            <img src={siteIcon} style={{ height: "5em" }}></img>
-            <Typography
-              variant="h5"
-              noWrap
-              component="p"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "serif",
-                fontWeight: 700,
-                color: "inherit",
-                textDecoration: "none",
-                letterSpacing: "-1px",
-              }}
-            >
-              Creative Community Website
-            </Typography>
+            <Stack>
+              <Typography
+                variant="h5"
+                noWrap
+                component="p"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "block" },
+                  fontFamily: "serif",
+                  fontWeight: 700,
+                  color: "inherit",
+                  textDecoration: "none",
+                  letterSpacing: "-1px",
+                }}
+              >
+                Creative Community Website
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                textAlign="center"
+                noWrap
+                component="p"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "block" },
+                  fontFamily: "serif",
+                  fontWeight: 700,
+                  color: "inherit",
+                  textDecoration: "none",
+                  letterSpacing: "-1px",
+                }}
+              >
+                Milestone Institute
+              </Typography>
+            </Stack>
             {/* For mobile */}
             <Box
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, pr: 2 }}
@@ -395,17 +415,16 @@ export function ResponsiveAppBar({
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem
-                    key={page.title}
-                    href={page.url}
-                    onClick={() => {
-                      handleCloseNavMenu();
-                    }}
-                  >
-                    {page.title}
+                  <MenuItem key={page.title}>
+                    <Button sx={{ color: "black" }} href={page.url}>
+                      {page.title}
+                    </Button>
                   </MenuItem>
                 ))}
               </Menu>
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <img src={siteIcon} style={{ height: "5em" }}></img>
             </Box>
             {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
             {/* TODO: disabled */}
