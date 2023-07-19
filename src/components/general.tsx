@@ -317,7 +317,7 @@ export function ResponsiveAppBar({
               <Typography
                 variant="h5"
                 noWrap
-                component="p"
+                component="h1"
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "block" },
@@ -455,10 +455,44 @@ export function ResponsiveAppBar({
           </IconButton> */}
           </Toolbar>
         </Container>
+        <Container sx={{ display: { md: "none", xs: "block" } }}>
+          <Stack>
+            <Typography
+              variant="h4"
+              component="p"
+              textAlign={"center"}
+              sx={{
+                mr: 2,
+                fontFamily: "serif",
+                fontWeight: 700,
+                color: "inherit",
+                textDecoration: "none",
+                letterSpacing: "-1px",
+              }}
+            >
+              Creative Community
+            </Typography>
+            <Typography
+              variant="h6"
+              textAlign="center"
+              component="p"
+              sx={{
+                mr: 2,
+                fontFamily: "serif",
+                fontWeight: 700,
+                color: "inherit",
+                textDecoration: "none",
+                letterSpacing: "-1px",
+              }}
+            >
+              Milestone Institute
+            </Typography>
+          </Stack>
+        </Container>
         <Stack
           direction={"row"}
           alignItems={"center"}
-          sx={{ justifyContent: { xs: "end", md: "end" } }}
+          sx={{ justifyContent: { xs: "start", md: "end" } }}
           px={{ xs: 0, md: 3 }}
         >
           <Typography
@@ -466,9 +500,18 @@ export function ResponsiveAppBar({
             noWrap
             component="div"
             mr={2}
-            sx={{ height: "fit-content" }}
+            sx={{ height: "fit-content", display: { xs: "none", md: "block" } }}
           >
             Operated by:
+          </Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            mx={1}
+            sx={{ height: "fit-content", display: { xs: "block", md: "none" } }}
+          >
+            By:
           </Typography>
           <AvatarGroup>
             <Tooltip title="Creative Writing Community">
@@ -514,26 +557,27 @@ export function ResponsiveAppBar({
               />
             </Tooltip>
           </AvatarGroup>
-          {/* <Avatar
+          <Avatar
             sx={{
-              zIndex: "800",
+              // zIndex: "800",
               position: "absolute",
               cursor: "pointer",
-              width: "5em",
+              width: "5.5em",
               height: "auto",
-              marginTop: "0.7em",
-              padding: "0.4em",
+              marginTop: "0.5em",
+              padding: "0.3em",
               backgroundColor: "#fdc72f",
               // marginLeft: "auto",
               right: 0,
-              marginRight: "1em",
+              marginRight: "0",
+              display: { xs: "block", md: "none" },
             }}
             onClick={() => {
               navigate("/about");
             }}
             alt="Creative Writing Community"
             src={mstImg}
-          /> */}
+          />
         </Stack>
       </AppBar>
       <Box sx={{ height: "2.5em" }}></Box>
