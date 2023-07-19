@@ -30,6 +30,8 @@ export type ArticleType = {
 };
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
+import backgroundTexture from "../../images/backgroundTexture.png"; // Tell webpack this JS file uses this image
+
 function stringToColor(string: string) {
   let hash = 0;
   let i;
@@ -86,6 +88,7 @@ const Page = ({ data }: { data: ArticleType }) => {
   const rawString = JSON.stringify(data.contentfulArticle.documentBody.raw);
   const split = data.contentfulArticle.author.split(" ");
 
+  console.log(theme.breakpoints.up("md"));
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -124,7 +127,20 @@ const Page = ({ data }: { data: ArticleType }) => {
           </Typography>
         </Box>
       </Box>
-
+      <Box
+        sx={{
+          backgroundImage: `url(${backgroundTexture})`,
+          height: "200vh",
+          width: "130px",
+          position: "fixed",
+          top: 0,
+          right: 24,
+          zIndex: -1,
+          display: { xs: "none", md: "block" },
+        }}
+      >
+        {/* <img src={backgroundTexture} alt="" /> */}
+      </Box>
       <Footer />
     </ThemeProvider>
   );
