@@ -21,7 +21,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 
-import { Footer, ResponsiveAppBar, theme } from "../components/general";
+import { ResponsiveAppBar, theme } from "../components/general";
+import { Footer } from "../components/Footer";
 
 // MUI sx responsive values:
 //mui.com/system/getting-started/usage/#responsive-values
@@ -197,7 +198,7 @@ const IndexPage = ({ data }: { data: any }) => {
             Works:
           </Typography>
 
-          <Typography component={"h3"} variant="h6" gutterBottom>
+          <Typography component={"h3"} variant="h5" gutterBottom>
             2023 Summer works:
           </Typography>
 

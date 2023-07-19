@@ -17,7 +17,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { graphql } from "gatsby";
 import { renderRichText } from "gatsby-source-contentful/rich-text";
 import React from "react";
-import { Footer, ResponsiveAppBar, theme } from "../../components/general";
+import { ResponsiveAppBar, theme } from "../../components/general";
+import { Footer } from "../../components/Footer";
 export type ArticleType = {
   contentfulArticle: {
     link: string;
@@ -28,6 +29,8 @@ export type ArticleType = {
   };
 };
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
+import backgroundTexture from "../../images/backgroundTexture.png"; // Tell webpack this JS file uses this image
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -85,6 +88,7 @@ const Page = ({ data }: { data: ArticleType }) => {
   const rawString = JSON.stringify(data.contentfulArticle.documentBody.raw);
   const split = data.contentfulArticle.author.split(" ");
 
+  console.log(theme.breakpoints.up("md"));
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -123,7 +127,20 @@ const Page = ({ data }: { data: ArticleType }) => {
           </Typography>
         </Box>
       </Box>
-
+      <Box
+        sx={{
+          backgroundImage: `url(${backgroundTexture})`,
+          height: "200vh",
+          width: "130px",
+          position: "fixed",
+          top: 0,
+          right: 24,
+          zIndex: -1,
+          display: { xs: "none", md: "block" },
+        }}
+      >
+        {/* <img src={backgroundTexture} alt="" /> */}
+      </Box>
       <Footer />
     </ThemeProvider>
   );
