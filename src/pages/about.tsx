@@ -8,7 +8,8 @@ import "../styles/main.css";
 import { Box, CssBaseline } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
-import { Footer, ResponsiveAppBar, theme } from "../components/general";
+import { ResponsiveAppBar, theme } from "../components/general";
+import { Footer } from "../components/Footer";
 import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import historyImg from "../images/history.png"; // Tell webpack this JS file uses this image

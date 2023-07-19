@@ -17,7 +17,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { graphql } from "gatsby";
 import { renderRichText } from "gatsby-source-contentful/rich-text";
 import React from "react";
-import { Footer, ResponsiveAppBar, theme } from "../../components/general";
+import { ResponsiveAppBar, theme } from "../../components/general";
+import { Footer } from "../../components/Footer";
 export type ArticleType = {
   contentfulArticle: {
     link: string;
