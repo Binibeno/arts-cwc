@@ -88,7 +88,14 @@ function DataCard({
   description: string;
 }) {
   return (
-    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <Card
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#fcf4df",
+      }}
+    >
       <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -289,3 +296,9 @@ export const query = graphql`
 
 // TODO: preload fonts
 // https://www.gatsbyjs.com/docs/how-to/styling/using-local-fonts/#preload-your-fonts
+
+// loading indicator
+// gradient
+// image optimalization
+
+// sliding cards

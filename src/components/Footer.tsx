@@ -48,7 +48,11 @@ export default function LastModif() {
 export function Footer() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ padding: "3px 0" }} component={"div"}>
+      <AppBar
+        position="static"
+        sx={{ padding: "3px 0", backgroundColor: "#fcf4df" }}
+        component={"div"}
+      >
         <Toolbar>
           <Typography
             width={"100%"}
