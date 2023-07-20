@@ -184,7 +184,14 @@ const IndexPage = ({ data }: { data: any }) => {
         <CssBaseline />
         {/* <<CssBaseline /> */}
         <ResponsiveAppBar activePage="Home" />
-        <Box component="main" sx={{ p: 3, pt: 0 }}>
+        <Box
+          component="main"
+          sx={{
+            p: 3,
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
+          }}
+        >
           <Typography component="p" gutterBottom>
             Welcome to our website! This site serves as a platform to showcase
             the work of young artists who are looking to build their reputations
@@ -302,3 +309,4 @@ export const query = graphql`
 // image optimalization
 
 // sliding cards
+// fancy search
