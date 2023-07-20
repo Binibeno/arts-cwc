@@ -36,19 +36,18 @@ function Intro() {
   // TODO: auto get (see responsive docs)
   return (
     <>
-      <Typography variant="h4" component="h2" gutterBottom m={"0.5em 0"}>
+      <Typography variant="h4" component="h2" gutterBottom>
         <span style={{ color: "#f5c73e", fontFamily: "MyUnderwood" }}>
-          Creative writing
+          Creative writing,
         </span>{" "}
-        + <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts</span>{" "}
-        +{" "}
+        <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts, </span>{" "}
         <span style={{ fontFamily: "American Typewriter, MyUnderwood" }}>
-          History{" "}
-        </span>
+          History
+        </span>{" "}
         <span style={{ fontFamily: "serif" }}>Publications</span>
       </Typography>
 
-      <Grid container>
+      <Grid container justifyContent={"space-between"}>
         <Grid item xs={2.4}>
           <CenterImg>
             <Box
@@ -59,11 +58,7 @@ function Intro() {
             ></Box>
           </CenterImg>
         </Grid>
-        <Grid item xs={2.4}>
-          <CenterImg>
-            <AddIcon sx={{ fontSize: size }} />
-          </CenterImg>
-        </Grid>
+
         <Grid item xs={2.4}>
           <CenterImg>
             <Box
@@ -74,11 +69,7 @@ function Intro() {
             ></Box>
           </CenterImg>
         </Grid>
-        <Grid item xs={2.4}>
-          <CenterImg>
-            <AddIcon sx={{ fontSize: size }} />
-          </CenterImg>
-        </Grid>
+
         <Grid item xs={2.4}>
           <CenterImg>
             <Box
@@ -101,7 +92,7 @@ const About = () => {
       <ResponsiveAppBar activePage="About" />
       <Box
         component="main"
-        sx={{ p: 3, display: "flex", justifyContent: "center" }}
+        sx={{ p: 3, pt: 0, display: "flex", justifyContent: "center" }}
       >
         <Box sx={{ maxWidth: "780px" }}>
           <Intro />

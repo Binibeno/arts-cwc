@@ -48,7 +48,11 @@ export default function LastModif() {
 export function Footer() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ padding: "3px 0" }} component={"div"}>
+      <AppBar
+        position="static"
+        sx={{ padding: "3px 0", backgroundColor: "#fcf4df" }}
+        component={"div"}
+      >
         <Toolbar>
           <Typography
             width={"100%"}
@@ -66,12 +70,12 @@ export function Footer() {
               binibeno.hu
             </Link>
             <br />
-            All logos appearing on this website are the exclusive property of
-            Milestone Institute.
+            The Milstone logo appearing on this website is the exclusive
+            property of Milestone Institute.
             <br />
             <LastModif />
             <br />
-            <i>Version: Alpha, Closed testing!</i>
+            <i>Version: Beta, Closed testing!</i>
             <br />© 2023 Benedek Nemeth
           </Typography>
         </Toolbar>
