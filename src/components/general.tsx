@@ -455,13 +455,14 @@ export function ResponsiveAppBar({
           </IconButton> */}
           </Toolbar>
         </Container>
-        <Container sx={{ display: { md: "none", xs: "block" } }}>
+        <Container sx={{ display: { md: "none", xs: "block" }, mb: 1 }}>
           <Stack>
             <Typography
               variant="h4"
               component="p"
               textAlign={"center"}
               sx={{
+                fontSize: "2.2rem",
                 mr: 2,
                 fontFamily: "serif",
                 fontWeight: 700,
@@ -473,7 +474,7 @@ export function ResponsiveAppBar({
               Creative Community
             </Typography>
             <Typography
-              variant="h6"
+              variant="subtitle1"
               textAlign="center"
               component="p"
               sx={{
@@ -518,8 +519,8 @@ export function ResponsiveAppBar({
               <Avatar
                 sx={{
                   cursor: "pointer",
-                  height: "2.5em",
-                  width: "2.5em",
+                  height: { xs: "2em", md: "2.5em" },
+                  width: { xs: "2em", md: "2.5em" },
                 }}
                 onClick={() => {
                   navigate("/about");
@@ -532,8 +533,8 @@ export function ResponsiveAppBar({
               <Avatar
                 sx={{
                   cursor: "pointer",
-                  height: "2.5em",
-                  width: "2.5em",
+                  height: { xs: "2em", md: "2.5em" },
+                  width: { xs: "2em", md: "2.5em" },
                 }}
                 onClick={() => {
                   navigate("/about");
@@ -546,8 +547,8 @@ export function ResponsiveAppBar({
               <Avatar
                 sx={{
                   cursor: "pointer",
-                  height: "2.5em",
-                  width: "2.5em",
+                  height: { xs: "2em", md: "2.5em" },
+                  width: { xs: "2em", md: "2.5em" },
                 }}
                 onClick={() => {
                   navigate("/about");
@@ -562,9 +563,9 @@ export function ResponsiveAppBar({
               // zIndex: "800",
               position: "absolute",
               cursor: "pointer",
-              width: "5.5em",
+              width: "4.9em",
               height: "auto",
-              marginTop: "0.5em",
+              // marginTop: "0em",
               padding: "0.3em",
               backgroundColor: "#fdc72f",
               // marginLeft: "auto",

@@ -66,12 +66,12 @@ export function Footer() {
               binibeno.hu
             </Link>
             <br />
-            All logos appearing on this website are the exclusive property of
-            Milestone Institute.
+            The Milstone logo appearing on this website is the exclusive
+            property of Milestone Institute.
             <br />
             <LastModif />
             <br />
-            <i>Version: Alpha, Closed testing!</i>
+            <i>Version: Beta, Closed testing!</i>
             <br />© 2023 Benedek Nemeth
           </Typography>
         </Toolbar>

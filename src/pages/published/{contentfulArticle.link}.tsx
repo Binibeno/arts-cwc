@@ -85,10 +85,8 @@ const options = {
   },
 };
 const Page = ({ data }: { data: ArticleType }) => {
-  const rawString = JSON.stringify(data.contentfulArticle.documentBody.raw);
   const split = data.contentfulArticle.author.split(" ");
 
-  console.log(theme.breakpoints.up("md"));
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
