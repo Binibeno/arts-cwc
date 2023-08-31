@@ -1,48 +1,28 @@
 import * as React from "react";
-import type { HeadFC, PageProps } from "gatsby";
 //this project uses MUI
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, Link as MUILink } from "@mui/material";
 
-// import css
 import "../styles/main.css";
 
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
-import { blue, orange, red } from "@mui/material/colors";
+import LikeIcon from "@mui/icons-material/ThumbUp";
+import LikeIconDisabled from "@mui/icons-material/ThumbUpOutlined";
+import BookmarkDisabled from "@mui/icons-material/TurnedInNot";
+import BookmarkEnabled from "@mui/icons-material/TurnedIn";
 import {
-  Grid,
   Box,
   Card,
   CardActions,
   CardContent,
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Drawer,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  MenuItem,
-  Menu,
   Container,
-  ListItemButton,
+  CssBaseline,
+  Grid,
 } from "@mui/material";
-import LikeIcon from "@mui/icons-material/ThumbUp";
-import BookmarkDisabled from "@mui/icons-material/TurnedInNot";
-import BookmarkEnabled from "@mui/icons-material/TurnedInNot";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { Share } from "@mui/icons-material";
-import { faker } from "@faker-js/faker";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { ThemeProvider } from "@mui/material/styles";
+
+import { ResponsiveAppBar, theme } from "../components/general";
+import { Footer } from "../components/Footer";
 
 // MUI sx responsive values:
 //mui.com/system/getting-started/usage/#responsive-values
@@ -63,10 +43,6 @@ import SearchIcon from "@mui/icons-material/Search";
 
 //  import image
 // @ts-ignore
-import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
-// @ts-ignore
-import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this image
-
 // declare module "@mui/material/styles" {
 //   interface Theme {
 //     status: {
@@ -85,308 +61,91 @@ import cwcImg from "../images/cwc.jpg"; // Tell webpack this JS file uses this i
 //     };
 //   }
 // }
-const theme = createTheme({
-  palette: {
-    // primary: orange[500],
-    mode: "dark",
-    primary: {
-      main: blue[600],
-    },
-  },
-});
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
-function Center({ children }: { children?: React.ReactNode }) {
-  return <Container>{children}</Container>;
-}
+import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
+// @ts-ignore
+import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
+import { Link, graphql } from "gatsby";
 
-function Intro() {
-  function CenterImg({ children }: { children?: React.ReactNode }) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          // alignItems: "center",
-        }}
-      >
-        {children}
-      </Box>
-    );
-  }
-
-  const size = "6rem";
+function DataCard({
+  title,
+  author,
+  likeCount,
+  isLiked,
+  isFavorite,
+  link,
+  description,
+  imageUrl,
+}: {
+  title: string;
+  author: string;
+  likeCount: number;
+  isLiked: boolean;
+  isFavorite: boolean;
+  link: string;
+  imageUrl: string;
+  rawDocument: string;
+  description: string;
+}) {
   return (
-    <Box>
-      <Typography variant="h3" component="h2" gutterBottom m={"0.5em 0"}>
-        Milestone <span style={{ color: "#ef0f94" }}>Arts</span>+
-        <span style={{ color: "#f5c73e" }}>Creative writing</span> Newspaper
-      </Typography>
+    <Card
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#fcf4df",
+      }}
+    >
+      <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.primary">
+          By: {author}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+      </CardContent>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Grid container>
-          <Grid item xs={4}>
-            <CenterImg>
-              <img
-                src={artsImg}
-                alt=""
-                style={{ height: size, borderRadius: "5%" }}
-              />
-            </CenterImg>
-          </Grid>
-          <Grid item xs={4}>
-            <CenterImg>
-              <Typography variant="h1" component="h2">
-                +
-              </Typography>
-            </CenterImg>
-          </Grid>
-          <Grid item xs={4}>
-            <CenterImg>
-              <img
-                src={cwcImg}
-                alt=""
-                style={{ height: size, borderRadius: "5%" }}
-              />
-            </CenterImg>
-            {/* <p>Creative Writing Community</p> */}
-            {/* https://milestone.instructure.com/courses/1400/pages/creative-writing-community-2023-slash-24 */}
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
-  );
-}
-
-function DataCard({ children }: { children?: React.ReactNode }) {
-  return (
-    <Box sx={{ justifyContent: "center" }}>
-      <Card>
-        <CardMedia
-          sx={{ height: 140 }}
-          image={`${faker.image.url()}?random=${faker.datatype.number()}`}
-          title={faker.lorem.words(2)}
-        />
-        <CardContent>
-          <Grid container spacing={2}>
-            <Grid item xs={8}></Grid>
-            <Grid item xs={4}></Grid>
-          </Grid>
-          <Typography gutterBottom variant="h5" component="div">
-            {capitalizeFirstLetter(faker.lorem.words(2))}
-          </Typography>
-          {/* add Author */}
-          <Typography variant="body2" color="text.primary">
-            By: {faker.name.firstName()} {faker.name.lastName()}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {faker.lorem.paragraphs(1)}
-          </Typography>
-        </CardContent>
-
-        <CardActions>
-          <Button size="small" sx={{ marginRight: "auto" }}>
-            Read
-          </Button>
-          <Typography variant="body2" color="text.secondary">
-            {faker.datatype.number(100)}
-          </Typography>
-          <IconButton aria-label="Like">
-            {/* like buttin */}
-            <LikeIcon />
-          </IconButton>
-          <IconButton aria-label="Bookmark">
-            {/* like buttin */}
-            <BookmarkDisabled />
-          </IconButton>
-          {/*  share iconbutton using navgiator.share */}
-          {/* <IconButton aria-label="Share">
+      <CardActions sx={{ mt: "auto" }}>
+        <Button
+          href={`/published/${link}`}
+          variant="contained"
+          size="small"
+          sx={{ marginRight: "auto" }}
+        >
+          Read
+        </Button>
+        {/* <Typography variant="body2" color="text.secondary">
+          {likeCount}
+        </Typography>
+        <IconButton aria-label="Like">
+          {isLiked ? (
+            <LikeIcon color={"secondary"} />
+          ) : (
+            <LikeIconDisabled color={"secondary"} />
+          )}
+        </IconButton>
+        <IconButton aria-label="Bookmark">
+          {isFavorite ? (
+            <BookmarkEnabled color={"secondary"} />
+          ) : (
+            <BookmarkDisabled color={"secondary"} />
+          )} */}
+        {/* </IconButton> */}
+        {/*  share iconbutton using navgiator.share */}
+        {/* <IconButton aria-label="Share">
             <Share />
           </IconButton> */}
-        </CardActions>
-      </Card>
-    </Box>
-  );
-}
-
-function Footer() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ padding: "3px 0" }}>
-        <Toolbar>
-          <Typography
-            width={"100%"}
-            textAlign={"center"}
-            variant="body1"
-            color="inherit"
-            // padding={"24px"}
-            component="div"
-          >
-            © 2023 Benedek Nemeth. All rights reserved.
-            <br />
-            All logos were made by Milestone Institute and its students.
-            <br />
-            <i>Version: Early Alpha, Not public!</i>
-          </Typography>
-        </Toolbar>
-        {/* facebook, instagram, twitter buttons centered, in a grey color */}
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            justifyContent: "center",
-            gap: "1em",
-          }}
-        >
-          <IconButton color="inherit" aria-label="Facebook">
-            <FacebookIcon />
-          </IconButton>
-          <IconButton color="inherit" aria-label="Instagram">
-            <InstagramIcon />
-          </IconButton>
-          <IconButton color="inherit" aria-label="Twitter">
-            <TwitterIcon />
-          </IconButton>
-        </Box>
-      </AppBar>
-    </Box>
-  );
-}
-
-function ResponsiveAppBar() {
-  const pages = ["Home", "About", "Edit page"];
-
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* For desktop */}
-          {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            News
-          </Typography>
-          {/* For mobile */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            {/* drop down menu for mobile */}
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            News
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          {/* <SearchAppBar /> */}
-
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
-            sx={{ display: { md: "none", xs: "flex" } }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Toolbar>
-      </Container>
-    </AppBar>
+      </CardActions>
+    </Card>
   );
 }
 
 // todo: add editing page
+// todo: add milestone icon
 // todo: add search
 //todo:add like button counter
 // todo: add viewcounter
@@ -395,56 +154,107 @@ function ResponsiveAppBar() {
 // todo: add share button
 // todo: login using milestone id and masterpassword
 
-// todo: add icons into navbar
+//TODO: branches: dev:only me, prod: public on domain, stable: testing on github pages
 
-const IndexPage = () => {
+// TODO: https://www.gatsbyjs.com/plugins/gatsby-source-contentful/#displaying-responsive-image-with-gatsby-plugin-image
+// imageloading optimization
+
+// TODO: Most read, or New or Hot
+
+// TODO: Add Reading list in the navbar
+// TODO: analytics
+
+type singleArticleType = {
+  link: string;
+  title: string;
+  documentBody: { raw: string };
+  author: string;
+  creationDate: string;
+  coverImage: { url: string };
+  description: { description: string };
+};
+
+const IndexPage = ({ data }: { data: any }) => {
+  // query all articles
+  let allDocs: singleArticleType[] = data.allContentfulArticle.nodes;
+
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-        {/* <CssBaseline /> */}
+      <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
+        <CssBaseline />
         {/* <<CssBaseline /> */}
-        <ResponsiveAppBar />
-        <Box component="main" sx={{ p: 3 }}>
-          <Intro></Intro>
-          {/* <h2>Your favorites / saved (maybe add into top menu?):</h2> */}
+        <ResponsiveAppBar activePage="Home" />
+        <Box
+          component="main"
+          sx={{
+            p: 3,
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
+          }}
+        >
+          <Typography component="p" gutterBottom>
+            Welcome to our website! This site serves as a platform to showcase
+            the work of young artists who are looking to build their reputations
+            and increase their exposure in the community. Here, we aim to bring
+            awareness to the talented artists who attend our organization by
+            sharing their creations with the world. To learn more about our team
+            visit the <MUILink href="/about">about page</MUILink>.
+          </Typography>
 
-          <h2>Artworks:</h2>
-          <i>Working on it...</i>
-          <h2>Writings:</h2>
+          <br />
 
-          {/* <h3>Most popular:</h3> */}
-          <h3>Latest: </h3>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            alignItems="stretch"
+          <Typography
+            component={"h2"}
+            variant="h5"
+            sx={{ fontWeight: "bold" }}
+            gutterBottom
           >
-            {Array.from(Array(6)).map((_, index) => (
-              <Grid
-                // sx={{ height: "100%" }}
-                item
-                xs={4}
-                sm={4}
-                md={4}
+            Works:
+          </Typography>
+
+          <Typography component={"h3"} variant="h5" gutterBottom>
+            2023 Summer works:
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "stretch",
+              gap: 4,
+              flexWrap: { md: "wrap", xs: "wrap" },
+            }}
+          >
+            {Array.from(allDocs).map((doc, index) => (
+              <Box
+                sx={{
+                  // maxWidth: { md: `${100 / 4}%}`, xs: "unset" },
+                  flexBasis: { md: `calc(${100 / 3}% - 22px)`, xs: "unset" },
+                }}
                 key={index}
               >
-                <DataCard />
-              </Grid>
+                <DataCard
+                  rawDocument={doc.documentBody.raw}
+                  description={doc.description.description}
+                  author={doc.author}
+                  imageUrl={doc.coverImage.url}
+                  isFavorite={false}
+                  isLiked={true}
+                  likeCount={4}
+                  title={doc.title}
+                  link={doc.link}
+                />
+              </Box>
             ))}
-          </Grid>
+          </Box>
           <Container
-            maxWidth="sm"
+            maxWidth={false}
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <Button variant="contained" sx={{ marginTop: "1em" }}>
-              Load more
-            </Button>
-          </Container>
+          ></Container>
         </Box>
       </Box>
       <Footer />
@@ -460,8 +270,43 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <body className="my-body-class" />
-      <title>Arts CWC newspaper</title>
+      <title>Milestone Creative Community</title>
+      {/* TODO: indexing disabled */}
+      <meta name="robots" content="noindex"></meta>
     </>
   );
 }
+
+export const query = graphql`
+  query AllDocs {
+    allContentfulArticle {
+      nodes {
+        link
+        id
+        title
+        author
+        description {
+          description
+        }
+        documentBody {
+          raw
+        }
+        coverImage {
+          url
+        }
+      }
+    }
+  }
+`;
+
+//TODO: handle when data is null for preview reasons
+
+// TODO: preload fonts
+// https://www.gatsbyjs.com/docs/how-to/styling/using-local-fonts/#preload-your-fonts
+
+// loading indicator
+// gradient
+// image optimalization
+
+// sliding cards
+// fancy search
