@@ -519,16 +519,7 @@ const LinkBehavior = React.forwardRef <
                   src={artsImg}
                 />
               </Tooltip>
-              <Tooltip title="History Society">
-                <Avatar
-                  sx={{ cursor: "pointer", height: "2.7em", width: "2.7em" }}
-                  onClick={() => {
-                    navigate("/about");
-                  }}
-                  alt="History Society"
-                  src={historyImg}
-                />
-              </Tooltip>
+
             </AvatarGroup>
             <Avatar
               sx={{

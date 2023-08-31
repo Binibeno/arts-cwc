@@ -1,6 +1,6 @@
 import * as React from "react";
 //this project uses MUI
-import { Container, Grid, Link as MUILink } from "@mui/material";
+import { Grid, Link as MUILink } from "@mui/material";
 
 // import css
 import "../styles/main.css";
@@ -8,14 +8,11 @@ import "../styles/main.css";
 import { Box, CssBaseline } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
-import { ResponsiveAppBar, theme } from "../components/general";
 import { Footer } from "../components/Footer";
+import { ResponsiveAppBar, theme } from "../components/general";
 import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
-import historyImg from "../images/history.png"; // Tell webpack this JS file uses this image
-import siteIcon from "../images/icon.png"; // Tell webpack this JS file uses this image
 
-import AddIcon from "@mui/icons-material/AddRounded";
 function Intro() {
   function CenterImg({ children }: { children?: React.ReactNode }) {
     return (
@@ -38,16 +35,14 @@ function Intro() {
     <>
       <Typography variant="h4" component="h2" gutterBottom>
         <span style={{ color: "#f5c73e", fontFamily: "MyUnderwood" }}>
-          Creative writing,
+          Creative writing
         </span>{" "}
-        <span style={{ color: "#ef0f94", fontFamily: "cursive" }}>Arts, </span>{" "}
-        <span style={{ fontFamily: "American Typewriter, MyUnderwood" }}>
-          History
-        </span>{" "}
+        <span style={{ fontFamily: "serif" }}> & </span>
+        <span style={{ color: "#ef0f94", fontFamily: "cursive" }}> Arts </span>
         <span style={{ fontFamily: "serif" }}>Publications</span>
       </Typography>
 
-      <Grid container justifyContent={"space-between"}>
+      <Grid container justifyContent={"space-evenly"}>
         <Grid item xs={2.4}>
           <CenterImg>
             <Box
@@ -69,17 +64,6 @@ function Intro() {
             ></Box>
           </CenterImg>
         </Grid>
-
-        <Grid item xs={2.4}>
-          <CenterImg>
-            <Box
-              sx={{ borderRadius: 1, height: size }}
-              src={historyImg}
-              component={"img"}
-              draggable={false}
-            ></Box>
-          </CenterImg>
-        </Grid>
       </Grid>
       <br />
     </>
@@ -92,7 +76,7 @@ const About = () => {
       <ResponsiveAppBar activePage="About" />
       <Box
         component="main"
-        sx={{ p: 3, pt: 0, display: "flex", justifyContent: "center" }}
+        sx={{ p: 3, display: "flex", justifyContent: "center" }}
       >
         <Box sx={{ maxWidth: "780px" }}>
           <Intro />
@@ -115,8 +99,11 @@ const About = () => {
             this project:
             <ul>
               <li>Niki Fonth: President of the Creative Writing Community</li>
-              <li>Marcell Borbély: President of the History Society</li>
-              <li>Benedek Németh: Milestone student, Website developer</li>
+              <li>
+                Marcell Borbély: Vice president of the Create Writing Community,
+                President of the History Society
+              </li>
+              <li>Benedek Németh: Milestone student, Developer of the site</li>
             </ul>
           </Typography>
           <br />
@@ -144,8 +131,8 @@ const About = () => {
                 </MUILink>
               </li>
               <li>
-                <MUILink href="https://www.instagram.com/history_society_ms/?hl=en">
-                  History Society Instagram
+                <MUILink href="https://www.facebook.com/groups/6534419263258888">
+                  Milestone Creative Writing Community Facebook
                 </MUILink>
               </li>
             </ul>

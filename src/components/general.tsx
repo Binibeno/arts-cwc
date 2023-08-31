@@ -434,6 +434,10 @@ export function ResponsiveAppBar({
                     display: "block",
                     color: "black",
                     // borderColor: "black",
+                    border:
+                      activePage == page.title
+                        ? undefined
+                        : "1px solid transparent",
                   }}
                 >
                   {page.title}
@@ -543,7 +547,7 @@ export function ResponsiveAppBar({
                 src={artsImg}
               />
             </Tooltip>
-            <Tooltip title="History Society">
+            {/* <Tooltip title="History Society">
               <Avatar
                 sx={{
                   cursor: "pointer",
@@ -556,7 +560,7 @@ export function ResponsiveAppBar({
                 alt="History Society"
                 src={historyImg}
               />
-            </Tooltip>
+            </Tooltip> */}
           </AvatarGroup>
           <Avatar
             sx={{
@@ -581,7 +585,7 @@ export function ResponsiveAppBar({
           />
         </Stack>
       </AppBar>
-      <Box sx={{ height: "2.5em" }}></Box>
+      <Box sx={{ height: { xs: "1em", md: 0 } }}></Box>
     </>
   );
 }
