@@ -434,6 +434,10 @@ export function ResponsiveAppBar({
                     display: "block",
                     color: "black",
                     // borderColor: "black",
+                    border:
+                      activePage == page.title
+                        ? undefined
+                        : "1px solid transparent",
                   }}
                 >
                   {page.title}

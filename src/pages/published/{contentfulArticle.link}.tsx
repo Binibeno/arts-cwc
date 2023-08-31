@@ -97,6 +97,7 @@ const Page = ({ data }: { data: ArticleType }) => {
         sx={{ p: 3, display: "flex", justifyContent: "center" }}
       >
         <Box sx={{ maxWidth: "780px" }}>
+          {/* TODO:use mui breadcrumps */}
           <Typography variant="body2" component="p" gutterBottom>
             All works / 2023 Summer term / {data.contentfulArticle.title}
           </Typography>

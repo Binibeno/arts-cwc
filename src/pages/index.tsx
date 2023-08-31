@@ -118,7 +118,7 @@ function DataCard({
         >
           Read
         </Button>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           {likeCount}
         </Typography>
         <IconButton aria-label="Like">
@@ -133,8 +133,8 @@ function DataCard({
             <BookmarkEnabled color={"secondary"} />
           ) : (
             <BookmarkDisabled color={"secondary"} />
-          )}
-        </IconButton>
+          )} */}
+        {/* </IconButton> */}
         {/*  share iconbutton using navgiator.share */}
         {/* <IconButton aria-label="Share">
             <Share />
