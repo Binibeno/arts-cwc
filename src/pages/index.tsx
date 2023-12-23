@@ -66,7 +66,7 @@ import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this
 // @ts-ignore
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import { Link, graphql } from "gatsby";
-
+// @ts-ignore
 function DataCard({
   title,
   author,
@@ -88,37 +88,43 @@ function DataCard({
   description: string;
 }) {
   return (
-    <Card
-      sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#fcf4df",
-      }}
-    >
-      <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="text.primary">
-          By: {author}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
-      </CardContent>
+    <div className="ribbon-wrapper">
+      {/* <div className="ribbon"> */}
+      {/* <p>hello</p> */}
+      {/* </div> */}
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          // backgroundColor: "#fcf4df",
+          backgroundColor: "white",
+        }}
+      >
 
-      <CardActions sx={{ mt: "auto" }}>
-        <Button
-          href={`/published/${link}`}
-          variant="contained"
-          size="small"
-          sx={{ marginRight: "auto" }}
-        >
-          Read
-        </Button>
-        {/* <Typography variant="body2" color="text.secondary">
+        {/* <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} /> */}
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {title}
+          </Typography>
+          <Typography variant="body2" color="text.primary">
+            By: {author}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {description}
+          </Typography>
+        </CardContent>
+
+        <CardActions sx={{ mt: "auto" }}>
+          <Button
+            href={`/published/${link}`}
+            variant="contained"
+            size="small"
+            sx={{ marginRight: "auto" }}
+          >
+            Read
+          </Button>
+          {/* <Typography variant="body2" color="text.secondary">
           {likeCount}
         </Typography>
         <IconButton aria-label="Like">
@@ -134,13 +140,15 @@ function DataCard({
           ) : (
             <BookmarkDisabled color={"secondary"} />
           )} */}
-        {/* </IconButton> */}
-        {/*  share iconbutton using navgiator.share */}
-        {/* <IconButton aria-label="Share">
+          {/* </IconButton> */}
+          {/*  share iconbutton using navgiator.share */}
+          {/* <IconButton aria-label="Share">
             <Share />
           </IconButton> */}
-      </CardActions>
-    </Card>
+        </CardActions>
+      </Card>
+    </div>
+
   );
 }
 
@@ -180,84 +188,87 @@ const IndexPage = ({ data }: { data: any }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
+      <div style={{ display: "flex", flexDirection:"column"  }}>
         <CssBaseline />
-        {/* <<CssBaseline /> */}
-        <ResponsiveAppBar activePage="Home" />
-        <Box
-          component="main"
-          sx={{
-            p: 3,
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
-          }}
-        >
-          <Typography component="p" gutterBottom>
-            Welcome to our website! This site serves as a platform to showcase
-            the work of young artists who are looking to build their reputations
-            and increase their exposure in the community. Here, we aim to bring
-            awareness to the talented artists who attend our organization by
-            sharing their creations with the world. To learn more about our team
-            visit the <MUILink href="/about">about page</MUILink>.
-          </Typography>
-
-          <br />
-
-          <Typography
-            component={"h2"}
-            variant="h5"
-            sx={{ fontWeight: "bold" }}
-            gutterBottom
-          >
-            Works:
-          </Typography>
-
-          <Typography component={"h3"} variant="h5" gutterBottom>
-            2023 Summer works:
-          </Typography>
-
+        <Box sx={{ flex: 1, bgcolor: "palette.background.default", }}>
+          {/* <<CssBaseline /> */}
+          <ResponsiveAppBar activePage="Home" />
           <Box
+            component="main"
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "stretch",
-              gap: 4,
-              flexWrap: { md: "wrap", xs: "wrap" },
+              minHeight: "80vh",
+              p: 3,
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
             }}
           >
-            {Array.from(allDocs).map((doc, index) => (
-              <Box
-                sx={{
-                  // maxWidth: { md: `${100 / 4}%}`, xs: "unset" },
-                  flexBasis: { md: `calc(${100 / 3}% - 22px)`, xs: "unset" },
-                }}
-                key={index}
-              >
-                <DataCard
-                  rawDocument={doc.documentBody.raw}
-                  description={doc.description.description}
-                  author={doc.author}
-                  imageUrl={doc.coverImage.url}
-                  isFavorite={false}
-                  isLiked={true}
-                  likeCount={4}
-                  title={doc.title}
-                  link={doc.link}
-                />
-              </Box>
-            ))}
+            <Typography component="p" gutterBottom>
+              Welcome to our website! This site serves as a platform to showcase
+              the work of young artists who are looking to build their reputations
+              and increase their exposure in the community. Here, we aim to bring
+              awareness to the talented artists who attend our organization by
+              sharing their creations with the world. To learn more about our team
+              visit the <MUILink href="/about">about page</MUILink>.
+            </Typography>
+
+            <br />
+
+            <Typography
+              component={"h2"}
+              variant="h5"
+              sx={{ fontWeight: "bold" }}
+              gutterBottom
+            >
+              Works:
+            </Typography>
+
+            <Typography component={"h3"} variant="h5" gutterBottom>
+              2024 Spring works:
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "stretch",
+                gap: 4,
+                flexWrap: { md: "wrap", xs: "wrap" },
+              }}
+            >
+              {Array.from(allDocs).map((doc, index) => (
+                <Box
+                  sx={{
+                    // maxWidth: { md: `${100 / 4}%}`, xs: "unset" },
+                    flexBasis: { md: `calc(${100 / 3}% - 22px)`, xs: "unset" },
+                  }}
+                  key={index}
+                >
+                  <DataCard
+                    rawDocument={doc.documentBody.raw}
+                    description={doc.description.description}
+                    author={doc.author}
+                    imageUrl={doc.coverImage.url}
+                    isFavorite={false}
+                    isLiked={true}
+                    likeCount={4}
+                    title={doc.title}
+                    link={doc.link}
+                  />
+                </Box>
+              ))}
+            </Box>
+            <Container
+              maxWidth={false}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            ></Container>
           </Box>
-          <Container
-            maxWidth={false}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          ></Container>
         </Box>
-      </Box>
-      <Footer />
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 };
@@ -270,7 +281,7 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <title>Milestone Creative Community</title>
+      <title>Creative Writing Community</title>
       {/* TODO: indexing disabled */}
       <meta name="robots" content="noindex"></meta>
     </>

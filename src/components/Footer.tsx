@@ -45,9 +45,10 @@ export default function LastModif() {
     return `Last Updated: ${buildTimeRelative}`;
   }
 }
+
 export function Footer() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ }}>
       <AppBar
         position="static"
         sx={{ padding: "3px 0", backgroundColor: "#fcf4df" }}
@@ -76,7 +77,7 @@ export function Footer() {
             <LastModif />
             <br />
             <i>Version: Beta, Closed testing!</i>
-            <br />© 2023 Benedek Nemeth
+            <br />© 2024 Benedek Nemeth
           </Typography>
         </Toolbar>
         <Box
