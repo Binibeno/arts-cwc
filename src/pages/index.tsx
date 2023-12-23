@@ -66,13 +66,14 @@ import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this
 // @ts-ignore
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import { Link, graphql } from "gatsby";
+
 // @ts-ignore
 function DataCard({
   title,
   author,
   likeCount,
-  isLiked,
-  isFavorite,
+  isBestAward,
+  isSpecialAward,
   link,
   description,
   imageUrl,
@@ -80,51 +81,60 @@ function DataCard({
   title: string;
   author: string;
   likeCount: number;
-  isLiked: boolean;
-  isFavorite: boolean;
+  isBestAward: boolean;
+  isSpecialAward: boolean;
   link: string;
   imageUrl: string;
   rawDocument: string;
   description: string;
 }) {
   return (
-    <div className="ribbon-wrapper">
-      {/* <div className="ribbon"> */}
-      {/* <p>hello</p> */}
-      {/* </div> */}
-      <Card
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          // backgroundColor: "#fcf4df",
-          backgroundColor: "white",
-        }}
-      >
-
-        {/* <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} /> */}
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.primary">
-            By: {author}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
-
-        <CardActions sx={{ mt: "auto" }}>
-          <Button
-            href={`/published/${link}`}
-            variant="contained"
-            size="small"
-            sx={{ marginRight: "auto" }}
+    <Card
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        // backgroundColor: "#fcf4df",
+        backgroundColor: "white",
+        position: "relative",
+      }}
+    >
+      {(isBestAward || isSpecialAward) &&
+        <div className="ribbon ribbon-top-right">
+          <span
+            style={{
+              backgroundColor: isBestAward ? "#fdc72f" : "#19adc3",
+              color: isBestAward ? "black" : "white",
+            }}
           >
-            Read
-          </Button>
-          {/* <Typography variant="body2" color="text.secondary">
+
+            {isBestAward ? "AC Favourite" : "Special Awards"}
+          </span>
+        </div>
+      }
+      <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.primary">
+          By: {author}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+      </CardContent>
+
+      <CardActions sx={{ mt: "auto" }}>
+        <Button
+          href={`/published/${link}`}
+          variant="contained"
+          size="small"
+          sx={{ marginRight: "auto" }}
+        >
+          Read
+        </Button>
+        {/* <Typography variant="body2" color="text.secondary">
           {likeCount}
         </Typography>
         <IconButton aria-label="Like">
@@ -140,15 +150,13 @@ function DataCard({
           ) : (
             <BookmarkDisabled color={"secondary"} />
           )} */}
-          {/* </IconButton> */}
-          {/*  share iconbutton using navgiator.share */}
-          {/* <IconButton aria-label="Share">
+        {/* </IconButton> */}
+        {/*  share iconbutton using navgiator.share */}
+        {/* <IconButton aria-label="Share">
             <Share />
           </IconButton> */}
-        </CardActions>
-      </Card>
-    </div>
-
+      </CardActions>
+    </Card>
   );
 }
 
@@ -180,6 +188,8 @@ type singleArticleType = {
   creationDate: string;
   coverImage: { url: string };
   description: { description: string };
+  isFavoriteAward: boolean;
+  isSpecialAward: boolean;
 };
 
 const IndexPage = ({ data }: { data: any }) => {
@@ -188,10 +198,10 @@ const IndexPage = ({ data }: { data: any }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ display: "flex", flexDirection:"column"  }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <CssBaseline />
-        <Box sx={{ flex: 1, bgcolor: "palette.background.default", }}>
-          {/* <<CssBaseline /> */}
+
+        <Box sx={{ flex: 1, bgcolor: "palette.background.default" }}>
           <ResponsiveAppBar activePage="Home" />
           <Box
             component="main"
@@ -204,11 +214,12 @@ const IndexPage = ({ data }: { data: any }) => {
           >
             <Typography component="p" gutterBottom>
               Welcome to our website! This site serves as a platform to showcase
-              the work of young artists who are looking to build their reputations
-              and increase their exposure in the community. Here, we aim to bring
-              awareness to the talented artists who attend our organization by
-              sharing their creations with the world. To learn more about our team
-              visit the <MUILink href="/about">about page</MUILink>.
+              the work of young artists who are looking to build their
+              reputations and increase their exposure in the community. Here, we
+              aim to bring awareness to the talented artists who attend our
+              organization by sharing their creations with the world. To learn
+              more about our team visit the{" "}
+              <MUILink href="/about">about page</MUILink>.
             </Typography>
 
             <br />
@@ -248,8 +259,8 @@ const IndexPage = ({ data }: { data: any }) => {
                     description={doc.description.description}
                     author={doc.author}
                     imageUrl={doc.coverImage.url}
-                    isFavorite={false}
-                    isLiked={true}
+                    isSpecialAward={doc.isSpecialAward}
+                    isBestAward={doc.isFavoriteAward}
                     likeCount={4}
                     title={doc.title}
                     link={doc.link}
@@ -305,6 +316,8 @@ export const query = graphql`
         coverImage {
           url
         }
+        isSpecialAward
+        isFavoriteAward
       }
     }
   }

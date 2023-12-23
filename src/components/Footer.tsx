@@ -72,7 +72,7 @@ export function Footer() {
             </Link>
             <br />
             The Milestone logo appearing on this website is the exclusive
-            property of the Milestone Institute.
+            property of Milestone Institute.
             <br />
             <LastModif />
             <br />
