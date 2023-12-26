@@ -89,58 +89,65 @@ const Page = ({ data }: { data: ArticleType }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <ResponsiveAppBar activePage="content" />
+      <div className="aboutBg articleBg">
 
-      <Box
-        component="main"
-        sx={{ p: 3, display: "flex", justifyContent: "center" }}
-      >
-        <Box sx={{ maxWidth: "780px" }}>
-          {/* TODO:use mui breadcrumps */}
-          <Typography variant="body2" component="p" gutterBottom>
-            All works / 2024 Spring term / {data.contentfulArticle.title}
-          </Typography>
-          <Typography variant="h3" component="h1" gutterBottom>
-            {data.contentfulArticle.title}
-          </Typography>
+        <CssBaseline />
+        <ResponsiveAppBar activePage="content" />
 
-          <Chip
-            avatar={
-              <Avatar>
-                {split.length == 1
-                  ? `${split[0][0]}`
-                  : `${split[0][0]}${split[1][0]}`}
-              </Avatar>
-            }
-            label={data.contentfulArticle.author}
-          />
-          <Chip
-            sx={{ ml: 1 }}
-            icon={<CalendarMonthIcon />}
-            label={data.contentfulArticle.creationDate}
-          />
+        <Box
+          component="main"
+          sx={{ p: 3, display: "flex", justifyContent: "center" }}
+        >
+          <Box sx={{ maxWidth: "780px" }}>
+            {/* TODO:use mui breadcrumps */}
+            <Typography variant="body2" component="p" gutterBottom>
+              All works / 2024 Spring term / {data.contentfulArticle.title}
+            </Typography>
+            <Typography variant="h3" component="h1" gutterBottom>
+              {data.contentfulArticle.title}
+            </Typography>
 
-          <Typography variant="body1" component="h1" gutterBottom>
-            {renderRichText(data.contentfulArticle.documentBody as any, {})}
-          </Typography>
+            <Chip
+              avatar={
+                <Avatar>
+                  {split.length == 1
+                    ? `${split[0][0]}`
+                    : `${split[0][0]}${split[1][0]}`}
+                </Avatar>
+              }
+              label={data.contentfulArticle.author}
+            />
+            <Chip
+              sx={{ ml: 1 }}
+              icon={<CalendarMonthIcon />}
+              label={data.contentfulArticle.creationDate}
+            />
+
+            <Typography variant="body1" component="h1" gutterBottom>
+              {renderRichText(data.contentfulArticle.documentBody as any, {})}
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          backgroundImage: `url(${backgroundTexture})`,
-          height: "200vh",
-          width: "130px",
-          position: "fixed",
-          top: 0,
-          right: 24,
-          zIndex: -1,
-          display: { xs: "none", md: "block" },
-        }}
-      >
-        {/* <img src={backgroundTexture} alt="" /> */}
-      </Box>
-      <Footer />
+        <Box
+          sx={{
+            backgroundImage: `url(${backgroundTexture})`,
+            backgroundAttachment: "scroll",
+            height: "200vh",
+            width: "130px",
+            position: "fixed",
+            top: 0,
+            right: 24,
+            zIndex: -1,
+            display: { xs: "none", md: "block" },
+          }}
+        >
+          {/* <img src={backgroundTexture} alt="" /> */}
+        </Box>
+        <div style={{ position: "relative" }}>
+          <Footer />
+        </div>
+      </div>
+
     </ThemeProvider>
   );
 };
