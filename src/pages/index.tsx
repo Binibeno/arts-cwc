@@ -67,12 +67,13 @@ import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import { Link, graphql } from "gatsby";
 
+// @ts-ignore
 function DataCard({
   title,
   author,
   likeCount,
-  isLiked,
-  isFavorite,
+  isBestAward,
+  isSpecialAward,
   link,
   description,
   imageUrl,
@@ -80,8 +81,8 @@ function DataCard({
   title: string;
   author: string;
   likeCount: number;
-  isLiked: boolean;
-  isFavorite: boolean;
+  isBestAward: boolean;
+  isSpecialAward: boolean;
   link: string;
   imageUrl: string;
   rawDocument: string;
@@ -93,9 +94,24 @@ function DataCard({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#fcf4df",
+        // backgroundColor: "#fcf4df",
+        backgroundColor: "white",
+        position: "relative",
       }}
     >
+      {(isBestAward || isSpecialAward) &&
+        <div className="ribbon ribbon-top-right">
+          <span
+            style={{
+              backgroundColor: isBestAward ? "#fdc72f" : "#19adc3",
+              color: isBestAward ? "black" : "white",
+            }}
+          >
+
+            {isBestAward ? "AC Favourite" : "Special Awards"}
+          </span>
+        </div>
+      }
       <CardMedia sx={{ height: 140 }} image={imageUrl} title={title} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -172,6 +188,8 @@ type singleArticleType = {
   creationDate: string;
   coverImage: { url: string };
   description: { description: string };
+  isFavoriteAward: boolean;
+  isSpecialAward: boolean;
 };
 
 const IndexPage = ({ data }: { data: any }) => {
@@ -180,84 +198,88 @@ const IndexPage = ({ data }: { data: any }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1, bgcolor: "palette.background.default" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <CssBaseline />
-        {/* <<CssBaseline /> */}
-        <ResponsiveAppBar activePage="Home" />
-        <Box
-          component="main"
-          sx={{
-            p: 3,
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
-          }}
-        >
-          <Typography component="p" gutterBottom>
-            Welcome to our website! This site serves as a platform to showcase
-            the work of young artists who are looking to build their reputations
-            and increase their exposure in the community. Here, we aim to bring
-            awareness to the talented artists who attend our organization by
-            sharing their creations with the world. To learn more about our team
-            visit the <MUILink href="/about">about page</MUILink>.
-          </Typography>
 
-          <br />
-
-          <Typography
-            component={"h2"}
-            variant="h5"
-            sx={{ fontWeight: "bold" }}
-            gutterBottom
-          >
-            Works:
-          </Typography>
-
-          <Typography component={"h3"} variant="h5" gutterBottom>
-            2023 Summer works:
-          </Typography>
-
+        <Box sx={{ flex: 1, bgcolor: "palette.background.default" }}>
+          <ResponsiveAppBar activePage="Home" />
           <Box
+            component="main"
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "stretch",
-              gap: 4,
-              flexWrap: { md: "wrap", xs: "wrap" },
+              minHeight: "80vh",
+              p: 3,
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
             }}
           >
-            {Array.from(allDocs).map((doc, index) => (
-              <Box
-                sx={{
-                  // maxWidth: { md: `${100 / 4}%}`, xs: "unset" },
-                  flexBasis: { md: `calc(${100 / 3}% - 22px)`, xs: "unset" },
-                }}
-                key={index}
-              >
-                <DataCard
-                  rawDocument={doc.documentBody.raw}
-                  description={doc.description.description}
-                  author={doc.author}
-                  imageUrl={doc.coverImage.url}
-                  isFavorite={false}
-                  isLiked={true}
-                  likeCount={4}
-                  title={doc.title}
-                  link={doc.link}
-                />
-              </Box>
-            ))}
+            <Typography component="p" gutterBottom>
+              Welcome to our website! This site serves as a platform to showcase
+              the work of young artists who are looking to build their
+              reputations and increase their exposure in the community. Here, we
+              aim to bring awareness to the talented artists who attend our
+              organization by sharing their creations with the world. To learn
+              more about our team visit the{" "}
+              <MUILink href="/about">about page</MUILink>.
+            </Typography>
+
+            <br />
+
+            <Typography
+              component={"h2"}
+              variant="h5"
+              sx={{ fontWeight: "bold" }}
+              gutterBottom
+            >
+              Works:
+            </Typography>
+
+            <Typography component={"h3"} variant="h5" gutterBottom>
+              2024 Spring works:
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "stretch",
+                gap: 4,
+                flexWrap: { md: "wrap", xs: "wrap" },
+              }}
+            >
+              {Array.from(allDocs).map((doc, index) => (
+                <Box
+                  sx={{
+                    // maxWidth: { md: `${100 / 4}%}`, xs: "unset" },
+                    flexBasis: { md: `calc(${100 / 3}% - 22px)`, xs: "unset" },
+                  }}
+                  key={index}
+                >
+                  <DataCard
+                    rawDocument={doc.documentBody.raw}
+                    description={doc.description.description}
+                    author={doc.author}
+                    imageUrl={doc.coverImage.url}
+                    isSpecialAward={doc.isSpecialAward}
+                    isBestAward={doc.isFavoriteAward}
+                    likeCount={4}
+                    title={doc.title}
+                    link={doc.link}
+                  />
+                </Box>
+              ))}
+            </Box>
+            <Container
+              maxWidth={false}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            ></Container>
           </Box>
-          <Container
-            maxWidth={false}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          ></Container>
         </Box>
-      </Box>
-      <Footer />
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 };
@@ -270,7 +292,7 @@ export function Head() {
   return (
     <>
       <html lang="en" />
-      <title>Milestone Creative Community</title>
+      <title>Creative Writing Community</title>
       {/* TODO: indexing disabled */}
       <meta name="robots" content="noindex"></meta>
     </>
@@ -294,6 +316,8 @@ export const query = graphql`
         coverImage {
           url
         }
+        isSpecialAward
+        isFavoriteAward
       }
     }
   }

@@ -45,9 +45,10 @@ export default function LastModif() {
     return `Last Updated: ${buildTimeRelative}`;
   }
 }
+
 export function Footer() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ }}>
       <AppBar
         position="static"
         sx={{ padding: "3px 0", backgroundColor: "#fcf4df" }}
@@ -71,12 +72,12 @@ export function Footer() {
             </Link>
             <br />
             The Milestone logo appearing on this website is the exclusive
-            property of the Milestone Institute.
+            property of Milestone Institute.
             <br />
             <LastModif />
             <br />
             <i>Version: Beta, Closed testing!</i>
-            <br />© 2023 Benedek Nemeth
+            <br />© 2024 Benedek Nemeth
           </Typography>
         </Toolbar>
         <Box

@@ -1,6 +1,6 @@
 import * as React from "react";
 //this project uses MUI
-import { Grid, Link as MUILink } from "@mui/material";
+import { Container, Grid, Link as MUILink } from "@mui/material";
 
 // import css
 import "../styles/main.css";
@@ -29,20 +29,39 @@ function Intro() {
     );
   }
 
-  const size = { md: "6.857142857142857rem", xs: "4.857142857142857rem" };
+  // const size = { md: "6.857142857142857rem", xs: "4.857142857142857rem" };
   // TODO: auto get (see responsive docs)
   return (
     <>
-      <Typography variant="h4" component="h2" gutterBottom>
+      <Typography variant="h5" component="h2" gutterBottom textAlign={"center"}>
+        Created by:
+      </Typography>
+      <Typography variant="h4" component="h2" gutterBottom textAlign={"center"}>
         <span style={{ color: "#f5c73e", fontFamily: "MyUnderwood" }}>
-          Creative writing
+          Creative Writing Community
         </span>{" "}
-        <span style={{ fontFamily: "serif" }}> & </span>
-        <span style={{ color: "#ef0f94", fontFamily: "cursive" }}> Arts </span>
-        <span style={{ fontFamily: "serif" }}>Publications</span>
       </Typography>
 
-      <Grid container justifyContent={"space-evenly"}>
+
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+
+        <Box
+          sx={{
+            borderRadius: 1, height: "10rem", width: "auto"
+          }}
+          src={cwcImg}
+          component={"img"}
+          draggable={false}
+        ></Box>
+      </Container>
+
+      {/* <Grid container justifyContent={"space-evenly"}>
         <Grid item xs={2.4}>
           <CenterImg>
             <Box
@@ -52,8 +71,8 @@ function Intro() {
               draggable={false}
             ></Box>
           </CenterImg>
-        </Grid>
-
+        </Grid> */}
+      {/* 
         <Grid item xs={2.4}>
           <CenterImg>
             <Box
@@ -63,83 +82,93 @@ function Intro() {
               draggable={false}
             ></Box>
           </CenterImg>
-        </Grid>
-      </Grid>
+        </Grid> */}
+      {/* </Grid> */}
       <br />
     </>
   );
 }
 const About = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <ResponsiveAppBar activePage="About" />
-      <Box
-        component="main"
-        sx={{ p: 3, display: "flex", justifyContent: "center" }}
-      >
-        <Box sx={{ maxWidth: "780px" }}>
-          <Intro />
-          <Typography variant="body1" component="p" gutterBottom>
-            This site serves as a platform to showcase the work of young artists
-            who are looking to build their reputations and increase their
-            exposure in the community. Here, we aim to bring awareness to the
-            talented artists who attend our organization by sharing their
-            creations with the world. We hope that you enjoy the work of our
-            students and it inspires you to create something of your own.
-          </Typography>
+    <ThemeProvider theme={theme} >
+      {/* for the footer to say on the bottom */}
+      {/* https://stackoverflow.com/a/20352949/13167888  */}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <CssBaseline />
+        <Box
+          sx={{ flex: 1, bgcolor: "palette.background.default", }}
+        >
+          <ResponsiveAppBar activePage="About" />
+          <Box
+            component="main"
+            sx={{
+              minHeight: "80vh",
+              p: 3, alignItems: "center", display: "flex", flexDirection: "column",
+            }}
+          >
+            <Box sx={{ maxWidth: "780px" }}>
+              <Intro />
+              <Typography variant="body1" component="p" gutterBottom>
+                This site serves as a platform to showcase the work of young artists
+                who are looking to build their reputations and increase their
+                exposure in the community. Here, we aim to bring awareness to the
+                talented artists who attend our organization by sharing their
+                creations with the world. We hope that you enjoy the work of our
+                students and it inspires you to create something of your own.
+              </Typography>
 
-          <Typography variant="body1" component="p" gutterBottom>
-            We made this page in collaboration with the Milestone Arts Society
-            and the Creative Writing Community.
-          </Typography>
 
-          <Typography variant="body1" component="span">
-            Special thanks to the following people for their contributions to
-            this project:
-            <ul>
-              <li>Niki Fonth: President of the Creative Writing Community</li>
-              <li>
-                Marcell Borbély: Vice president of the Create Writing Community,
-                President of the History Society
-              </li>
-              <li>Benedek Németh: Milestone student, Developer of the site</li>
-            </ul>
-          </Typography>
-          <br />
-          <Typography variant="body1" component="span">
-            With any questions, comments, or concerns, you can reach us at:
-            <ul>
-              <li>
-                <MUILink href="mailto:contact@binibeno.hu">
-                  Benedek's email
-                </MUILink>
-              </li>
-              <li>
-                <MUILink href="https://www.instagram.com/binibeno/">
-                  Benedek's Instagram
-                </MUILink>
-              </li>
-              <li>
-                <MUILink href="https://binibeno.hu/en?utm_source=milestone-cwc-arts">
-                  Benedek's website
-                </MUILink>
-              </li>
-              <li>
-                <MUILink href="https://www.instagram.com/ms.arts.soc/?hl=en">
-                  Milestone Arts Society Instagram
-                </MUILink>
-              </li>
-              <li>
-                <MUILink href="https://www.facebook.com/groups/6534419263258888">
-                  Milestone Creative Writing Community Facebook
-                </MUILink>
-              </li>
-            </ul>
-          </Typography>
+              <Typography variant="body1" component="span">
+                Special thanks to the following people for their contributions to
+                this project:
+                <ul>
+                  <li>Niki Fonth: Copresident of the Creative Writing Community</li>
+                  <li>
+                    Marcell Borbély: Copresident of the Create Writing Community,
+                    President of the History Society
+                  </li>
+                  <li>Benedek Németh: Milestone student, Developer of the site</li>
+                </ul>
+              </Typography>
+              <br />
+
+
+              <Typography variant="body1" component="span">
+                And many thanks to the Members of the Adult Committe:
+                <ul>
+                  <li>Adrian Matus, Chair of Humanities</li>
+                  <li>
+                    Masha Semashyna, Deputy Head of Teaching and Learning
+                  </li>
+                </ul>
+              </Typography>
+              <Typography variant="body1" component="span">
+                With any questions, comments, or concerns, you can reach us at:
+                <ul>
+
+                  <li>
+                    <MUILink href="https://www.facebook.com/groups/6534419263258888">
+                      Milestone Creative Writing Community Facebook
+                    </MUILink>
+                  </li>
+                  <li>
+                    <MUILink href="mailto:contact@binibeno.hu">
+                      Benedek's email
+                    </MUILink>
+                  </li>
+                  <li>
+                    <MUILink href="https://binibeno.hu/en?utm_source=milestone-cwc-arts">
+                      Benedek's website
+                    </MUILink>
+                  </li>
+
+                </ul>
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-      <Footer />
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 };

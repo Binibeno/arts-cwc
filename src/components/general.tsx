@@ -475,7 +475,7 @@ export function ResponsiveAppBar({
                 letterSpacing: "-1px",
               }}
             >
-              Creative Community
+              Creative Writing Community
             </Typography>
             <Typography
               variant="subtitle1"
@@ -494,7 +494,7 @@ export function ResponsiveAppBar({
             </Typography>
           </Stack>
         </Container>
-        <Stack
+        {/* <Stack
           direction={"row"}
           alignItems={"center"}
           sx={{ justifyContent: { xs: "start", md: "end" } }}
@@ -514,11 +514,14 @@ export function ResponsiveAppBar({
             noWrap
             component="div"
             mx={1}
-            sx={{ height: "fit-content", display: { xs: "block", md: "none" } }}
+            sx={{ height: "fit-content", display: { xs: "none", md: "none" } }}
           >
             By:
           </Typography>
-          <AvatarGroup>
+
+          <AvatarGroup sx={{
+            opacity: { xs: 0, md:1} 
+          }}>
             <Tooltip title="Creative Writing Community">
               <Avatar
                 sx={{
@@ -547,20 +550,6 @@ export function ResponsiveAppBar({
                 src={artsImg}
               />
             </Tooltip>
-            {/* <Tooltip title="History Society">
-              <Avatar
-                sx={{
-                  cursor: "pointer",
-                  height: { xs: "2em", md: "2.5em" },
-                  width: { xs: "2em", md: "2.5em" },
-                }}
-                onClick={() => {
-                  navigate("/about");
-                }}
-                alt="History Society"
-                src={historyImg}
-              />
-            </Tooltip> */}
           </AvatarGroup>
           <Avatar
             sx={{
@@ -583,7 +572,7 @@ export function ResponsiveAppBar({
             alt="Creative Writing Community"
             src={mstImg}
           />
-        </Stack>
+        </Stack> */}
       </AppBar>
       <Box sx={{ height: { xs: "1em", md: 0 } }}></Box>
     </>
