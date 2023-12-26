@@ -362,7 +362,7 @@ const LinkBehavior = React.forwardRef <
                     letterSpacing: "-1px",
                   }}
                 >
-                  Creative Community Website
+                  Creative Writing Community Website
                 </Typography>
                 <Typography
                   variant="subtitle1"

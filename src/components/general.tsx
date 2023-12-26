@@ -328,7 +328,7 @@ export function ResponsiveAppBar({
                   letterSpacing: "-1px",
                 }}
               >
-                Creative Community
+                Creative Writing Community
               </Typography>
               <Typography
                 variant="subtitle1"

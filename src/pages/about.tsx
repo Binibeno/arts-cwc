@@ -88,15 +88,20 @@ function Intro() {
     </>
   );
 }
+
+// import bg from "../images/backgroundTexture.png"; // Tell webpack this JS file uses this image
+// console.log(bg)
 const About = () => {
   return (
     <ThemeProvider theme={theme} >
       {/* for the footer to say on the bottom */}
       {/* https://stackoverflow.com/a/20352949/13167888  */}
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="aboutBg" style={{
+        display: "flex", flexDirection: "column",
+      }}>
         <CssBaseline />
         <Box
-          sx={{ flex: 1, bgcolor: "palette.background.default", }}
+          sx={{ flex: 1, bgcolor: "palette.background.default", position: "relative" }}
         >
           <ResponsiveAppBar activePage="About" />
           <Box
@@ -122,7 +127,7 @@ const About = () => {
                 Special thanks to the following people for their contributions to
                 this project:
                 <ul>
-                  <li>Niki Fonth: Copresident of the Creative Writing Community</li>
+                  <li>Niki Fonth: Copresident of the Creative Writing Community, Author of the site's artworks</li>
                   <li>
                     Marcell Borbély: Copresident of the Create Writing Community,
                     President of the History Society
@@ -142,6 +147,7 @@ const About = () => {
                   </li>
                 </ul>
               </Typography>
+
               <Typography variant="body1" component="span">
                 With any questions, comments, or concerns, you can reach us at:
                 <ul>
@@ -167,7 +173,9 @@ const About = () => {
             </Box>
           </Box>
         </Box>
-        <Footer />
+        <div style={{ position: "relative" }}>
+          <Footer />
+        </div>
       </div>
     </ThemeProvider>
   );
