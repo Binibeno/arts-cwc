@@ -42,5 +42,10 @@
     "@types/react-dom": "^18.2.18",
     "dotenv": "^16.3.1",
     "typescript": "^5.3.3"
+  },
+  "overrides": {
+    "react-server-dom-webpack@0.0.0-experimental-c8b778b7f-20220825": {
+      "react": "^18.2.0"
+    }
   }
 }
