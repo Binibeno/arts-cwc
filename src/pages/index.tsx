@@ -179,7 +179,6 @@ function DataCard({
 
 // TODO: Add Reading list in the navbar
 // TODO: analytics
-
 type singleArticleType = {
   link: string;
   title: string;
@@ -192,16 +191,23 @@ type singleArticleType = {
   isSpecialAward: boolean;
 };
 
+import backgroundImg from "../images/backgroundTexture.png"; // Tell webpack this JS file uses this image
+
 const IndexPage = ({ data }: { data: any }) => {
   // query all articles
   let allDocs: singleArticleType[] = data.allContentfulArticle.nodes;
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{
+        display: "flex", flexDirection: "column",
+        
+        
+      }} className="homeBg">
         <CssBaseline />
 
-        <Box sx={{ flex: 1, bgcolor: "palette.background.default" }}>
+        <Box sx={{ flex: 1}} className="">
+
           <ResponsiveAppBar activePage="Home" />
           <Box
             component="main"
@@ -209,7 +215,12 @@ const IndexPage = ({ data }: { data: any }) => {
               minHeight: "80vh",
               p: 3,
               background:
-                "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(253,199,47,1) 100%, rgba(252,244,223,1) 100%)",
+
+              {
+                xs: "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(253, 199, 47, 1) 100%, rgba(252, 244, 223, 1) 100%)",
+                md: "transparent"
+              },
+              
             }}
           >
             <Typography component="p" gutterBottom>
@@ -278,8 +289,11 @@ const IndexPage = ({ data }: { data: any }) => {
             ></Container>
           </Box>
         </Box>
+        <div style={{position: "relative"}}>
+
         <Footer />
-      </div>
+        </div>
+      </Box>
     </ThemeProvider>
   );
 };
