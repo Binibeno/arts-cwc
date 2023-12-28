@@ -10,7 +10,7 @@ console.log(`Contentful config loaded:`, {
   host: process.env.CONTENTFUL_HOST,
 }); // remove
 
-const pathPrefix = "/arts-cwc";
+const pathPrefix = "/";
 
 const config: GatsbyConfig = {
   pathPrefix: pathPrefix,
