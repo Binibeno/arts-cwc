@@ -170,6 +170,13 @@ const About = () => {
 
                 </ul>
               </Typography>
+              <Typography variant="body1" component="span">
+                <br />
+                The Milestone logo appearing on this website is the exclusive
+                property of Milestone Institute.
+                <br />
+                <i>Version: Production 1.0</i>
+                </Typography>
             </Box>
           </Box>
         </Box>

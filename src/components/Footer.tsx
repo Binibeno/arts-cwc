@@ -11,6 +11,8 @@ import {
   Link,
 } from "@mui/material";
 import { graphql, useStaticQuery } from "gatsby";
+import siteIcon from "../images/icon.webp"; // Tell webpack this JS file uses this image
+
 // @ts-ignore
 import relativeDate from "tiny-relative-date";
 //https://traviswimer.com/blog/error-hydration-failed-because-the-initial-ui-does-not-match-what-was-rendered-on-the-server/
@@ -70,46 +72,57 @@ export function Footer() {
             <Link href="https://binibeno.hu/en?utm_source=milestone-cwc-arts">
               binibeno.hu
             </Link>
-            <br />
-            The Milestone logo appearing on this website is the exclusive
-            property of Milestone Institute.
-            <br />
+           <br />
             <LastModif />
             <br />
-            <i>Version: Beta, Closed testing!</i>
-            <br />© 2024 Benedek Nemeth
+            {/* <i>Version: Beta, Open testing!</i> */}
+
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "center",
+                gap: "1em",
+              }}
+            >
+              <IconButton
+                href="https://www.facebook.com/msinst"
+                color="inherit"
+                aria-label="Facebook"
+              >
+                <FacebookIcon />
+              </IconButton>
+              <IconButton
+                href="https://www.instagram.com/milestone_institute/"
+                color="inherit"
+                aria-label="Instagram"
+              >
+                <InstagramIcon />
+              </IconButton>
+              <IconButton
+                color="inherit"
+                aria-label="Twitter"
+                href="https://twitter.com/yourmilestone"
+              >
+                <TwitterIcon />
+              </IconButton>
+            </Box>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "center",
+                gap: "1em",
+              }}
+            >
+              <img src={siteIcon} style={{ height: "5em" }}></img>
+            </Box>
+            © 2024 Benedek Nemeth
           </Typography>
         </Toolbar>
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            justifyContent: "center",
-            gap: "1em",
-          }}
-        >
-          <IconButton
-            href="https://www.facebook.com/msinst"
-            color="inherit"
-            aria-label="Facebook"
-          >
-            <FacebookIcon />
-          </IconButton>
-          <IconButton
-            href="https://www.instagram.com/milestone_institute/"
-            color="inherit"
-            aria-label="Instagram"
-          >
-            <InstagramIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            aria-label="Twitter"
-            href="https://twitter.com/yourmilestone"
-          >
-            <TwitterIcon />
-          </IconButton>
-        </Box>
+        {/* site icon */}
+       
+       
       </AppBar>
     </Box>
   );

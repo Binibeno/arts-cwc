@@ -30,8 +30,8 @@ import { LinkProps as RouterLinkProps } from "@reach/router";
 import artsImg from "../images/arts.png"; // Tell webpack this JS file uses this image
 import cwcImg from "../images/cwc.png"; // Tell webpack this JS file uses this image
 import historyImg from "../images/history.png"; // Tell webpack this JS file uses this image
-import siteIcon from "../images/icon.png"; // Tell webpack this JS file uses this image
-import mstImg from "../images/mst.png"; // Tell webpack this JS file uses this image
+import siteIcon from "../images/icon.webp"; // Tell webpack this JS file uses this image
+import mstImg from "../images/mst.webp"; // Tell webpack this JS file uses this image
 
 const LinkBehavior = React.forwardRef<
   HTMLAnchorElement,
@@ -309,8 +309,8 @@ export function ResponsiveAppBar({
       <AppBar position="relative">
         <Container maxWidth={false}>
           <Toolbar disableGutters>
-            <Box sx={{ display: { xs: "none", md: "flex" }, mt: 1, mx: 1 }}>
-              <img src={mstImg} style={{ height: "4.5em" }}></img>
+            <Box sx={{ display: { xs: "none", md: "flex" }, mt: 1, mx: 1, p:1 }}>
+              <img src={mstImg} style={{ height: "4.5em",  }}></img>
             </Box>
             {/* For desktop */}
             <Stack>

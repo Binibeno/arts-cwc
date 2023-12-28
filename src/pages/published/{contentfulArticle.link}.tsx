@@ -128,7 +128,7 @@ const Page = ({ data }: { data: ArticleType }) => {
             </Typography>
           </Box>
         </Box>
-        <Box
+        {/* <Box
           sx={{
             backgroundImage: `url(${backgroundTexture})`,
             backgroundAttachment: "scroll",
@@ -141,8 +141,7 @@ const Page = ({ data }: { data: ArticleType }) => {
             display: { xs: "none", md: "block" },
           }}
         >
-          {/* <img src={backgroundTexture} alt="" /> */}
-        </Box>
+        </Box> */}
         <div style={{ position: "relative" }}>
           <Footer />
         </div>

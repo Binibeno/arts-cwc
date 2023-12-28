@@ -1,0 +1,8 @@
+First I'll try to optimize these the best i can with online tools
+
+After I'll try to use gatsby scripts and compare which did a better job (https://www.gatsbyjs.com/docs/preoptimizing-images/)
+
+
+How to optimize (manully): 
+1. compress: https://tinypng.com/
+2. convert to webp https://cloudconvert.com/png-to-webp

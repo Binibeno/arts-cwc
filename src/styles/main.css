@@ -170,16 +170,45 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../images/backgroundTexture2.png);
+  background-image: url(../images/ballons.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   filter: opacity(0.2);
+  background-attachment: scroll;
 }
 
 .articleBg::before {
   background-image: url(../images/backgroundTexture.png);
-  filter: opacity(0.15);
+  /* blur the background a bit */
+  filter: opacity(0.15) blur(4px);
+  background-size: cover;
+    background-repeat: repeat;
   background-attachment: scroll;
+}
+
+.homeBg {
+  position: relative;
+}
+.homeBg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: unset;
+  background-size: auto;
+  background-position: center;
+  background-repeat: repeat;
+  filter: opacity(0.2);
+  background-attachment: scroll;
+}
+
+/* https: //mui.com/material-ui/customization/breakpoints/ */
+@media screen and (min-width: 900px) {
+.homeBg::before {
+    background-image: url(../images/backgroundTexture.png);
+}
 }
