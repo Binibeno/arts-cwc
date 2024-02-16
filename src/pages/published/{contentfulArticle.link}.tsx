@@ -11,6 +11,7 @@ import {
   Chip,
   Container,
   CssBaseline,
+  Stack,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
@@ -26,8 +27,12 @@ export type ArticleType = {
     documentBody: { raw: string };
     author: string;
     creationDate: string;
+    isFavoriteAward: boolean;
+    isSpecialAward: boolean;
+
   };
 };
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import backgroundTexture from "../../images/backgroundTexture.png"; // Tell webpack this JS file uses this image
@@ -65,28 +70,32 @@ function stringAvatar(name: string) {
 }
 
 const Bold = ({ children }: any) => <span className="bold">{children}</span>;
-const Text = ({ children }: any) => <p className="align-center">{children}</p>;
-const options = {
-  renderMark: {
-    [MARKS.BOLD]: (text: string) => <Bold>{text}</Bold>,
-  },
-  renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any, children: any) => <Text>{children}</Text>,
-    [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
-      return (
-        <>
-          <h2>Embedded Asset</h2>
-          <pre>
-            <code>{JSON.stringify(node, null, 2)}</code>
-          </pre>
-        </>
-      );
-    },
-  },
-};
+
 const Page = ({ data }: { data: ArticleType }) => {
   const split = data.contentfulArticle.author.split(" ");
 
+  //! warning weird edge case
+  // look this is a terrible soultion
+  // TODO: add a property into contentful to enable left algined text
+  const Text = ({ children }: any) => <p className={"articleTextItem" + (data.contentfulArticle.link == "a-fishermans-tale" ? "alignLeft" : "")}>{children}</p>;
+  const options = {
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node: any, children: any) => (
+        <Text style={{
+        }}>{children}</Text>
+      ),
+      [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+        return (
+          <>
+            <h2>Embedded Asset</h2>
+            <pre>
+              <code>{JSON.stringify(node, null, 2)}</code>
+            </pre>
+          </>
+        );
+      },
+    },
+  };
   return (
     <ThemeProvider theme={theme}>
       <div className="aboutBg articleBg">
@@ -103,29 +112,72 @@ const Page = ({ data }: { data: ArticleType }) => {
             <Typography variant="body2" component="p" gutterBottom>
               All works / 2024 Spring term / {data.contentfulArticle.title}
             </Typography>
-            <Typography variant="h3" component="h1" gutterBottom>
+            <Typography variant="h6" component="h1" style={{
+              backgroundColor: "#19adc3",
+              borderRadius: "5px",
+              width: "fit-content",
+              paddingRight: "5px",
+            }}
+              
+            >
+              {data.contentfulArticle.isSpecialAward ? "🏆 Special Award" : ""}
+            </Typography>
+            <Typography variant="h6" component="h1" style={{
+              backgroundColor: "#fdc72f",
+              borderRadius: "5px",
+              width: "fit-content",
+              paddingRight: "5px",
+
+            }} >
+              {data.contentfulArticle.isFavoriteAward ? "🏆 Adult Committe's favourite" : ""}
+            </Typography>
+            <Typography variant="h3" component="h1" >
               {data.contentfulArticle.title}
             </Typography>
-
-            <Chip
-              avatar={
-                <Avatar>
-                  {split.length == 1
-                    ? `${split[0][0]}`
-                    : `${split[0][0]}${split[1][0]}`}
-                </Avatar>
-              }
-              label={data.contentfulArticle.author}
-            />
-            <Chip
-              sx={{ ml: 1 }}
-              icon={<CalendarMonthIcon />}
-              label={data.contentfulArticle.creationDate}
-            />
-
-            <Typography variant="body1" component="h1" gutterBottom>
-              {renderRichText(data.contentfulArticle.documentBody as any, {})}
+            <Typography fontSize={"2rem"} variant="h4" component="h2" gutterBottom>
+              By: {data.contentfulArticle.author}
             </Typography>
+
+            <Typography variant="body1" component="h1" gutterBottom className="articleText">
+              {renderRichText(data.contentfulArticle.documentBody as any, options)}
+            </Typography>
+          
+            <Stack
+              sx={{ ml: 1, my: 2 }}
+              direction="row"
+              gap={1}
+              // allow wrap
+              flexWrap="wrap"
+              // center items
+              justifyContent="center"
+            >
+              <Chip
+                avatar={
+                  <Avatar>
+                    {split.length == 1
+                      ? `${split[0][0]}`
+                      : `${split[0][0]}${split[1][0]}`}
+                  </Avatar>
+                }
+                label={data.contentfulArticle.author}
+              />
+              {data.contentfulArticle.creationDate && (
+                <Chip
+                  icon={<CalendarMonthIcon />}
+                  label={data.contentfulArticle.creationDate}
+                />)}
+              {data.contentfulArticle.isFavoriteAward && (
+                <Chip
+                  icon={<EmojiEventsIcon />}
+                  label={"Adult Committe's favourite"}
+                />)}
+              {data.contentfulArticle.isSpecialAward && (
+                <Chip
+                  icon={<EmojiEventsIcon />}
+                  label={"Special Award"}
+                />)}
+            </Stack>
+
           </Box>
         </Box>
         {/* <Box
@@ -142,6 +194,8 @@ const Page = ({ data }: { data: ArticleType }) => {
           }}
         >
         </Box> */}
+
+
         <div style={{ position: "relative" }}>
           <Footer />
         </div>
@@ -160,6 +214,8 @@ export const data = graphql`
       documentBody {
         raw
       }
+      isFavoriteAward
+      isSpecialAward
       creationDate(formatString: "MMMM Do, YYYY")
     }
   }
