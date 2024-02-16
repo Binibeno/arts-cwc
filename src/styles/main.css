@@ -212,3 +212,11 @@ body {
     background-image: url(../images/backgroundTexture.png);
 }
 }
+
+.articleTextItem {
+  white-space: pre-wrap;
+  text-align: center ;
+}
+.alignLeft {
+  text-align: left;
+}

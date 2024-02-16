@@ -120,7 +120,7 @@ function DataCard({
         <Typography variant="body2" color="text.primary">
           By: {author}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" style={{whiteSpace:"pre-wrap"}}>
           {description}
         </Typography>
       </CardContent>
