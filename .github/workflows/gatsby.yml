@@ -77,6 +77,15 @@ jobs:
             ${{ runner.os }}-gatsby-build-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          file_name: .env.production
+          envkey_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          envkey_CONTENTFUL_HOST: ${{ vars.CONTENTFUL_HOST }}
+          envkey_CONTENTFUL_SPACE_ID: ${{ vars.CONTENTFUL_SPACE_ID }}
+
       - name: Build with Gatsby
         env:
           PREFIX_PATHS: 'true'
