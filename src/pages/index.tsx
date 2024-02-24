@@ -217,7 +217,7 @@ const IndexPage = ({ data }: { data: any }) => {
               background:
 
               {
-                xs: "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(253, 199, 47, 1) 100%, rgba(252, 244, 223, 1) 100%)",
+                // xs: "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(253, 199, 47, 1) 100%, rgba(252, 244, 223, 1) 100%)",
                 md: "transparent"
               },
               
